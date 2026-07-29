@@ -306,7 +306,7 @@
 
         <p class="section-intro">
 
-            A next-generation multi-agent decision support platform designed to help organizations evaluate AI readiness, prioritize investments, manage risks, and build practical transformation roadmaps.
+            A multi-agent decision intelligence platform that helps organizations identify, evaluate, and prioritize AI opportunities, combining business value, data readiness, governance, risk, and implementation recommendations into a single executive view.
 
         </p>
 
@@ -320,21 +320,21 @@
 
             <p>
 
-                The Enterprise AI Adoption Advisor combines enterprise best practices, governance, business strategy, architecture, risk assessment, and AI-powered recommendations to guide organizations throughout their AI adoption journey.
+                Choose one of eight preset enterprise use cases across banking and healthcare, or describe your own initiative, and the Advisor runs it through a structured evaluation covering business value, risk, complexity, adoption readiness, and data readiness. Every assessment returns an Executive Briefing with a clear funding recommendation, the conditions attached to it, and the key tension leadership needs to resolve. A Portfolio View ranks every use case at once, sorted into Quick Win, Strategic Bet, Long Term Play, or Reconsider.
 
             </p>
 
             <ul>
 
-    <li>AI Readiness Assessment</li>
+    <li>Single Use Case Assessment with Executive Briefing</li>
 
-    <li>Enterprise Intelligence Framework</li>
+    <li>Portfolio View Ranking Across Multiple Initiatives</li>
 
-    <li>Governance & Responsible AI</li>
+    <li>Value, Risk, Complexity, Adoption & Data Readiness Scorecards</li>
 
-    <li>Multi-Agent Decision Support</li>
+    <li>Governance & Responsible AI Built Into Every Assessment</li>
 
-    <li>Executive Recommendations</li>
+    <li>Per Agent Detail Behind Every Score</li>
 
 </ul>
 
@@ -571,11 +571,11 @@ Complete the form below and I'll respond as soon as possible.
             </div>
 
             <div class="contact-form">
-<form action="https://formspree.io/f/xdaqylap" method="POST">
+<form id="contactForm" action="https://formspree.io/f/xdaqylap" method="POST">
 
     <input type="hidden" name="_subject" value="New inquiry from Net2User website">
 
-    <input type="hidden" name="_next" value="https://net2user.com/thankyou.html">
+    <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
 
     <input
         type="text"
@@ -658,6 +658,30 @@ Complete the form below and I'll respond as soon as possible.
 </footer>
 
 <script src="js/main.js"></script>
+
+<script>
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  contactForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+    fetch(form.action, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    }).then(response => {
+      if (response.ok) {
+        window.location.href = 'thankyou.html';
+      } else {
+        alert('Something went wrong sending your message. Please try again or email directly.');
+      }
+    }).catch(() => {
+      alert('Something went wrong sending your message. Please try again or email directly.');
+    });
+  });
+}
+</script>
 
 </body>
 
