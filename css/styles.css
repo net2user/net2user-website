@@ -367,7 +367,7 @@ h2{
 .contact-grid{
 
     display:grid;
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:280px 1fr;
     gap:40px;
 
 }
