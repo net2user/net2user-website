@@ -113,6 +113,29 @@ header{
     color:#174EA6;
 
 }
+.menu-toggle{
+
+    display:none;
+    flex-direction:column;
+    justify-content:space-between;
+    width:28px;
+    height:20px;
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:0;
+
+}
+
+.menu-toggle span{
+
+    display:block;
+    height:3px;
+    width:100%;
+    background:#174EA6;
+    border-radius:2px;
+
+}
 
 /* ===========================
    Hero
@@ -443,15 +466,42 @@ footer hr{
 
 .navbar{
 
-    flex-direction:column;
-    gap:20px;
+    flex-direction:row;
+    justify-content:space-between;
+
+}
+
+.menu-toggle{
+
+    display:flex;
 
 }
 
 .nav-links{
 
-    flex-wrap:wrap;
-    justify-content:center;
+    display:none;
+    flex-direction:column;
+    position:absolute;
+    top:70px;
+    left:0;
+    width:100%;
+    background:#ffffff;
+    box-shadow:0 8px 20px rgba(0,0,0,.1);
+    padding:20px 0;
+    gap:0;
+
+}
+
+.nav-links.active{
+
+    display:flex;
+
+}
+
+.nav-links li{
+
+    text-align:center;
+    padding:15px 0;
 
 }
 
