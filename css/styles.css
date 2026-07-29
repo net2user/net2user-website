@@ -371,6 +371,27 @@ h2{
 
 }
 
+/* Contact spacing fix: tighten the gap below the intro text
+   and align the info column with the top of the form column */
+
+.contact .section-intro{
+
+    margin-bottom:25px;
+
+}
+
+.contact-grid{
+
+    align-items:start;
+
+}
+
+.contact-info p{
+
+    margin-bottom:24px;
+
+}
+
 .contact-form input,
 .contact-form textarea{
 
