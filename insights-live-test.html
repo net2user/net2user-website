@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insights | Net2User</title>
+<meta name="description" content="Articles and perspectives from Vikas Sharma on enterprise AI, responsible adoption, governance and transformation leadership.">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header>
+<nav class="navbar">
+<div class="logo">NET2USER</div>
+<button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+<span></span>
+<span></span>
+<span></span>
+</button>
+<ul class="nav-links" id="navLinks">
+<li><a href="index.html">Home</a></li>
+<li><a href="services.html">Services</a></li>
+<li><a href="research.html">Research</a></li>
+<li><a href="projects.html">AI Adoption Advisor</a></li>
+<li><a href="insights.html">Insights</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</nav>
+</header>
+
+<section class="hero">
+<div class="hero-content">
+<span class="eyebrow">Latest Insights</span>
+<h1>Articles & Perspectives</h1>
+<p>
+Practical perspectives drawn from real enterprise AI and transformation engagements, published weekly on governance, accountability, and what actually happens after a pilot succeeds. This page updates automatically from the DigitalWalk blog.
+</p>
+</div>
+</section>
+
+<section class="insights">
+<div class="container">
+<div class="insights-grid" id="blogPosts">
+<div class="insight-card"><p>Loading latest posts…</p></div>
+</div>
+</div>
+</section>
+
+<section class="advisor">
+<div class="container">
+<div class="advisor-box">
+<h3>More Where That Came From</h3>
+<p>New pieces are published weekly. For the full archive, or to follow along by email or RSS, visit the DigitalWalk blog directly.</p>
+<a href="https://vikas-sharma-digitalwalk.blogspot.com/" target="_blank" rel="noopener" class="btn-primary">Visit DigitalWalk</a>
+</div>
+</div>
+</section>
+
+<footer>
+<div class="container">
+<div class="footer-content">
+<h3>NET2USER</h3>
+<p>Enterprise AI • Transformation • Intelligence</p>
+<p>Helping organizations turn AI ambition into enterprise value.</p>
+<hr>
+<p>© 2026 Net2User. All Rights Reserved.</p>
+</div>
+</div>
+</footer>
+
+<script src="js/main.js"></script>
+
+<script>
+function renderBlogPosts(data) {
+  const container = document.getElementById('blogPosts');
+  const entries = data.feed.entry || [];
+
+  if (entries.length === 0) {
+    container.innerHTML = '<div class="insight-card"><p>No posts found right now. Visit the blog directly for the latest writing.</p></div>';
+    return;
+  }
+
+  container.innerHTML = '';
+
+  entries.forEach(function (entry) {
+    const title = entry.title.$t;
+
+    let link = '#';
+    for (let i = 0; i < entry.link.length; i++) {
+      if (entry.link[i].rel === 'alternate') {
+        link = entry.link[i].href;
+        break;
+      }
+    }
+
+    const rawDate = entry.published.$t;
+    const dateObj = new Date(rawDate);
+    const dateStr = dateObj.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+    let summary = entry.summary ? entry.summary.$t : '';
+    summary = summary.replace(/<[^>]*>/g, '');
+    if (summary.length > 220) {
+      summary = summary.substring(0, 220).trim() + '…';
+    }
+
+    const card = document.createElement('div');
+    card.className = 'insight-card';
+    card.innerHTML =
+      '<h3>' + title + '</h3>' +
+      '<p>' + summary + '</p>' +
+      '<p><em>' + dateStr + '</em> · <a href="' + link + '" target="_blank" rel="noopener">Read the full post →</a></p>';
+    container.appendChild(card);
+  });
+}
+</script>
+
+<script src="https://vikas-sharma-digitalwalk.blogspot.com/feeds/posts/default?alt=json-in-script&max-results=6&callback=renderBlogPosts"></script>
+
+</body>
+</html>
