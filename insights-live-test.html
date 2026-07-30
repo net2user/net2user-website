@@ -6,6 +6,31 @@
 <title>Insights | Net2User</title>
 <meta name="description" content="Articles and perspectives from Vikas Sharma on enterprise AI, responsible adoption, governance and transformation leadership.">
 <link rel="stylesheet" href="css/styles.css">
+<style>
+.read-more{
+    display:inline-block;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:.3px;
+    color:#ffffff;
+    background:#B0223A;
+    padding:7px 16px;
+    border-radius:20px;
+    text-decoration:none;
+    margin-top:14px;
+    transition:.3s;
+}
+.read-more:hover{
+    background:#8A1A2D;
+    transform:translateY(-2px);
+}
+.post-date{
+    font-size:13px;
+    color:#888;
+    display:block;
+    margin-top:16px;
+}
+</style>
 </head>
 <body>
 
@@ -102,8 +127,6 @@ function renderBlogPosts(data) {
     const dateObj = new Date(rawDate);
     const dateStr = dateObj.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
-    // Prefer summary, but Blogger only fills this in when a post has an
-    // explicit jump break, so fall back to the full post content otherwise.
     let raw = (entry.summary && entry.summary.$t) ? entry.summary.$t : entry.content.$t;
     let excerpt = stripHtml(raw);
     if (excerpt.length > 220) {
@@ -115,7 +138,8 @@ function renderBlogPosts(data) {
     card.innerHTML =
       '<h3>' + title + '</h3>' +
       '<p>' + excerpt + '</p>' +
-      '<p><em>' + dateStr + '</em> · <a href="' + link + '" target="_blank" rel="noopener">Read the full post →</a></p>';
+      '<span class="post-date">' + dateStr + '</span>' +
+      '<a href="' + link + '" target="_blank" rel="noopener" class="read-more">Read the full post →</a>';
     container.appendChild(card);
   });
 }
