@@ -71,6 +71,11 @@ Practical perspectives drawn from real enterprise AI and transformation engageme
 <script src="js/main.js"></script>
 
 <script>
+function stripHtml(html) {
+  if (!html) return '';
+  return html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
 function renderBlogPosts(data) {
   const container = document.getElementById('blogPosts');
   const entries = data.feed.entry || [];
@@ -97,17 +102,19 @@ function renderBlogPosts(data) {
     const dateObj = new Date(rawDate);
     const dateStr = dateObj.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
-    let summary = entry.summary ? entry.summary.$t : '';
-    summary = summary.replace(/<[^>]*>/g, '');
-    if (summary.length > 220) {
-      summary = summary.substring(0, 220).trim() + '…';
+    // Prefer summary, but Blogger only fills this in when a post has an
+    // explicit jump break, so fall back to the full post content otherwise.
+    let raw = (entry.summary && entry.summary.$t) ? entry.summary.$t : entry.content.$t;
+    let excerpt = stripHtml(raw);
+    if (excerpt.length > 220) {
+      excerpt = excerpt.substring(0, 220).trim() + '…';
     }
 
     const card = document.createElement('div');
     card.className = 'insight-card';
     card.innerHTML =
       '<h3>' + title + '</h3>' +
-      '<p>' + summary + '</p>' +
+      '<p>' + excerpt + '</p>' +
       '<p><em>' + dateStr + '</em> · <a href="' + link + '" target="_blank" rel="noopener">Read the full post →</a></p>';
     container.appendChild(card);
   });
