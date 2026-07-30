@@ -11,18 +11,18 @@
     display:inline-block;
     font-size:13px;
     font-weight:700;
-    letter-spacing:.3px;
-    color:#ffffff;
-    background:#B0223A;
-    padding:7px 16px;
-    border-radius:20px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    color:#B0223A;
+    background:none;
+    padding:0;
     text-decoration:none;
     margin-top:14px;
     transition:.3s;
 }
 .read-more:hover{
-    background:#8A1A2D;
-    transform:translateY(-2px);
+    color:#8A1A2D;
+    text-decoration:underline;
 }
 .post-date{
     font-size:13px;
@@ -139,7 +139,7 @@ function renderBlogPosts(data) {
       '<h3>' + title + '</h3>' +
       '<p>' + excerpt + '</p>' +
       '<span class="post-date">' + dateStr + '</span>' +
-      '<a href="' + link + '" target="_blank" rel="noopener" class="read-more">Read the post →</a>';
+      '<a href="' + link + '" target="_blank" rel="noopener" class="read-more">Read More</a>';
     container.appendChild(card);
   });
 }
