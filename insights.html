@@ -6,6 +6,31 @@
 <title>Insights | Net2User</title>
 <meta name="description" content="Articles and perspectives from Vikas Sharma on enterprise AI, responsible adoption, governance and transformation leadership.">
 <link rel="stylesheet" href="css/styles.css">
+<style>
+.read-more{
+    display:inline-block;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    color:#B0223A;
+    background:none;
+    padding:0;
+    text-decoration:none;
+    margin-top:14px;
+    transition:.3s;
+}
+.read-more:hover{
+    color:#8A1A2D;
+    text-decoration:underline;
+}
+.post-date{
+    font-size:13px;
+    color:#888;
+    display:block;
+    margin-top:16px;
+}
+</style>
 </head>
 <body>
 
@@ -33,63 +58,15 @@
 <span class="eyebrow">Latest Insights</span>
 <h1>Articles & Perspectives</h1>
 <p>
-Practical perspectives drawn from real enterprise AI and transformation engagements, published weekly on governance, accountability, and what actually happens after a pilot succeeds.
+Practical perspectives drawn from real enterprise AI and transformation engagements, published regularly on governance, accountability, and what actually happens after a pilot succeeds. This page updates automatically from the DigitalWalk blog.
 </p>
 </div>
 </section>
 
 <section class="insights">
 <div class="container">
-<div class="insights-grid">
-
-<div class="insight-card">
-<h3>Why More AI Tools Rarely Solve Enterprise Problems</h3>
-<p>
-A global professional services firm had every individual AI and automation tool working exactly as designed, yet the program was still struggling. The reason: each tool had been selected, deployed, and governed in isolation, with its own team, its own metric, its own vendor relationship. A portfolio of capabilities had been built, but not the organizational capability to connect them.
-</p>
-<p><em>July 21, 2026</em> · <a href="https://vikas-sharma-digitalwalk.blogspot.com/2026/07/why-more-ai-tools-rarely-solve.html" target="_blank" rel="noopener">Read the full post →</a></p>
-</div>
-
-<div class="insight-card">
-<h3>The Provenance Problem</h3>
-<p>
-A private bank's RAG based investment recommendation system was validated, documented, and performing well in production, sharper recommendations, earlier risk flags. Months in, a single recommendation came under internal review, and the real question wasn't whether the outcome was reasonable, it was whether anyone could actually trace how the system arrived at it.
-</p>
-<p><em>July 15, 2026</em> · <a href="https://vikas-sharma-digitalwalk.blogspot.com/2026/07/the-provenance-problem.html" target="_blank" rel="noopener">Read the full post →</a></p>
-</div>
-
-<div class="insight-card">
-<h3>The Accountability GAP</h3>
-<p>
-Every team at a global financial services organization could produce evidence supporting its own view of an incident, logs, reports, assessments, approvals. What nobody could produce was a single coherent account of the decision path that led to the outcome. The organization didn't have an accountability problem, it had an evidence problem.
-</p>
-<p><em>July 09, 2026</em> · <a href="https://vikas-sharma-digitalwalk.blogspot.com/2026/07/the-accountability-gap.html" target="_blank" rel="noopener">Read the full post →</a></p>
-</div>
-
-<div class="insight-card">
-<h3>When Nobody Owns the Outcome</h3>
-<p>
-A wealth management platform's AI system sharpened recommendations and caught risk earlier during its pilot. Six months after deployment, one unavoidable question surfaced: when the model flags a risk and the portfolio manager doesn't act on it, who actually owns that outcome, the team that built it, the team that used it, or the team that approved it?
-</p>
-<p><em>July 06, 2026</em> · <a href="https://vikas-sharma-digitalwalk.blogspot.com/2026/07/when-nobody-owns-outcome.html" target="_blank" rel="noopener">Read the full post →</a></p>
-</div>
-
-<div class="insight-card">
-<h3>The Hidden Cost of AI Pilots</h3>
-<p>
-A large US insurer's claims automation pilot looked like a genuine success story, faster intake, fewer manual touchpoints, real relief for the adjusters in the room. Eighteen months later, that same pilot was still running in exactly one regional office, because scaling it meant pulling in every stakeholder who was never part of the original pilot.
-</p>
-<p><em>June 30, 2026</em> · <a href="https://vikas-sharma-digitalwalk.blogspot.com/2026/06/the-hidden-cost-of-ai-pilots.html" target="_blank" rel="noopener">Read the full post →</a></p>
-</div>
-
-<div class="insight-card">
-<h3>AI Doesn't Fail in Isolation. Organizations Do.</h3>
-<p>
-A regional bank wanted to move from a hierarchical structure to a faster, project based operating model, without touching decision rights. The technology was never the hard part. This is the pattern that keeps recurring across transformation programs, and rarely gets named correctly until it's already caused a delay.
-</p>
-<p><em>June 24, 2026</em> · <a href="https://vikas-sharma-digitalwalk.blogspot.com/2026/06/ai-doesnt-fail-in-isolation.html" target="_blank" rel="noopener">Read the full post →</a></p>
-</div>
-
+<div class="insights-grid" id="blogPosts">
+<div class="insight-card"><p>Loading latest posts…</p></div>
 </div>
 </div>
 </section>
@@ -98,7 +75,7 @@ A regional bank wanted to move from a hierarchical structure to a faster, projec
 <div class="container">
 <div class="advisor-box">
 <h3>More Where That Came From</h3>
-<p>New pieces are published weekly. For the full archive, or to follow along by email or RSS, visit the DigitalWalk blog directly.</p>
+<p>New pieces are published regularly. For the full archive, or to follow along by email or RSS, visit the DigitalWalk blog directly.</p>
 <a href="https://vikas-sharma-digitalwalk.blogspot.com/" target="_blank" rel="noopener" class="btn-primary">Visit DigitalWalk</a>
 </div>
 </div>
@@ -117,5 +94,58 @@ A regional bank wanted to move from a hierarchical structure to a faster, projec
 </footer>
 
 <script src="js/main.js"></script>
+
+<script>
+function stripHtml(html) {
+  if (!html) return '';
+  return html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+function renderBlogPosts(data) {
+  const container = document.getElementById('blogPosts');
+  const entries = data.feed.entry || [];
+
+  if (entries.length === 0) {
+    container.innerHTML = '<div class="insight-card"><p>No posts found right now. Visit the blog directly for the latest writing.</p></div>';
+    return;
+  }
+
+  container.innerHTML = '';
+
+  entries.forEach(function (entry) {
+    const title = entry.title.$t;
+
+    let link = '#';
+    for (let i = 0; i < entry.link.length; i++) {
+      if (entry.link[i].rel === 'alternate') {
+        link = entry.link[i].href;
+        break;
+      }
+    }
+
+    const rawDate = entry.published.$t;
+    const dateObj = new Date(rawDate);
+    const dateStr = dateObj.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+    let raw = (entry.summary && entry.summary.$t) ? entry.summary.$t : entry.content.$t;
+    let excerpt = stripHtml(raw);
+    if (excerpt.length > 220) {
+      excerpt = excerpt.substring(0, 220).trim() + '…';
+    }
+
+    const card = document.createElement('div');
+    card.className = 'insight-card';
+    card.innerHTML =
+      '<h3>' + title + '</h3>' +
+      '<p>' + excerpt + '</p>' +
+      '<span class="post-date">' + dateStr + '</span>' +
+      '<a href="' + link + '" target="_blank" rel="noopener" class="read-more">Read More</a>';
+    container.appendChild(card);
+  });
+}
+</script>
+
+<script src="https://vikas-sharma-digitalwalk.blogspot.com/feeds/posts/default?alt=json-in-script&max-results=6&callback=renderBlogPosts"></script>
+
 </body>
 </html>
