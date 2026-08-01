@@ -1,1 +1,589 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Enterprise AI Adoption Advisor — Live Demo</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
+
+  :root{
+    --bg:#FFFFFF;
+    --ink:#1A1A1A;
+    --muted:#5F6368;
+    --line:#E8EAED;
+    --blue:#4285F4;
+    --red:#EA4335;
+    --yellow:#FBBC05;
+    --green:#34A853;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--bg);height:100%;overflow:hidden;}
+  body{
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    color:var(--ink);
+  }
+  .viewport{
+    width:100vw;
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--bg);
+    overflow:hidden;
+  }
+  .stage{
+    position:relative;
+    width:1600px;
+    height:900px;
+    background:var(--bg);
+    flex:none;
+  }
+  .scene{
+    position:absolute;
+    inset:0;
+    opacity:0;
+    pointer-events:none;
+    display:flex;
+    flex-direction:column;
+    padding:64px 80px 48px 80px;
+    transition:opacity .6s ease;
+  }
+  .scene.active{ opacity:1; pointer-events:auto; }
+
+  .mono{ font-family:'JetBrains Mono',monospace; }
+
+  /* header bar shared across scenes */
+  .topbar{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom:36px;
+  }
+  .brand{
+    font-weight:800;
+    font-size:30px;
+    letter-spacing:-0.5px;
+  }
+  .brand .dot{ color:var(--blue); }
+  .tagline{
+    font-size:14px;
+    color:var(--muted);
+    max-width:560px;
+    text-align:right;
+    line-height:1.5;
+  }
+
+  /* ---------- SCENE 1: HERO ---------- */
+  #scene-hero{ align-items:flex-start; justify-content:center; }
+  .hero-eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:2px;
+    color:var(--blue);
+    text-transform:uppercase;
+    margin-bottom:22px;
+    opacity:0;
+  }
+  .hero-title{
+    font-size:64px;
+    font-weight:800;
+    letter-spacing:-1.5px;
+    line-height:1.08;
+    max-width:1100px;
+    opacity:0;
+  }
+  .hero-sub{
+    font-size:20px;
+    color:var(--muted);
+    max-width:760px;
+    margin-top:24px;
+    line-height:1.55;
+    opacity:0;
+  }
+  .hero-chips{
+    display:flex;
+    gap:14px;
+    margin-top:40px;
+    opacity:0;
+  }
+  .chip{
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+    font-weight:600;
+    padding:9px 16px;
+    border-radius:20px;
+    border:1.5px solid var(--line);
+    color:var(--ink);
+  }
+  .chip.b{ border-color:var(--blue); color:var(--blue); }
+  .chip.g{ border-color:var(--green); color:var(--green); }
+  .chip.y{ border-color:var(--yellow); color:#8a6d00; }
+  .chip.r{ border-color:var(--red); color:var(--red); }
+
+  #scene-hero.active .hero-eyebrow{ animation:riseIn .6s ease forwards .1s; }
+  #scene-hero.active .hero-title{ animation:riseIn .7s ease forwards .3s; }
+  #scene-hero.active .hero-sub{ animation:riseIn .7s ease forwards .55s; }
+  #scene-hero.active .hero-chips{ animation:riseIn .7s ease forwards .8s; }
+
+  @keyframes riseIn{
+    from{ opacity:0; transform:translateY(18px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  /* ---------- SCENE 2: SINGLE USE CASE ---------- */
+  .panel-label{
+    display:flex;
+    gap:28px;
+    font-size:15px;
+    font-weight:600;
+    margin-bottom:22px;
+  }
+  .panel-label span{ padding-bottom:8px; color:var(--muted); }
+  .panel-label span.on{ color:var(--red); border-bottom:2.5px solid var(--red); }
+
+  .field-label{ font-size:13px; color:var(--muted); margin-bottom:8px; font-weight:600; }
+  .input-box{
+    border:1.5px solid var(--line);
+    border-radius:8px;
+    padding:16px 18px;
+    font-size:15px;
+    color:var(--ink);
+    background:#FAFAFA;
+    min-height:26px;
+    margin-bottom:26px;
+    max-width:900px;
+  }
+  #typed-text::after{
+    content:'';
+    display:inline-block;
+    width:2px;
+    height:16px;
+    background:var(--ink);
+    margin-left:2px;
+    vertical-align:-2px;
+    animation:blink 1s step-end infinite;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  .run-btn{
+    background:var(--red);
+    color:#fff;
+    font-weight:700;
+    font-size:14px;
+    border:none;
+    border-radius:8px;
+    padding:14px 26px;
+    width:fit-content;
+    margin-bottom:34px;
+    opacity:.45;
+    transition:opacity .3s ease, transform .15s ease;
+  }
+  .run-btn.pulse{ opacity:1; animation:pulseBtn .5s ease; }
+  @keyframes pulseBtn{
+    0%{ transform:scale(1); }
+    40%{ transform:scale(1.05); box-shadow:0 0 0 8px rgba(234,67,53,0.12); }
+    100%{ transform:scale(1); }
+  }
+
+  .score-row{
+    display:flex;
+    gap:20px;
+    margin-bottom:30px;
+  }
+  .score-card{
+    flex:1;
+    border:1.5px solid var(--line);
+    border-radius:10px;
+    padding:18px 20px;
+    opacity:0;
+    transform:translateY(14px);
+  }
+  .score-card.show{ animation:cardIn .5s ease forwards; }
+  @keyframes cardIn{ to{ opacity:1; transform:translateY(0); } }
+  .score-card .lbl{ font-size:12.5px; color:var(--muted); font-weight:600; margin-bottom:10px; }
+  .score-card .num{
+    font-family:'JetBrains Mono',monospace;
+    font-size:34px;
+    font-weight:700;
+  }
+  .score-card .num small{ font-size:15px; color:var(--muted); font-weight:500; }
+  .score-card .bar{
+    height:5px;
+    border-radius:3px;
+    background:var(--line);
+    margin-top:12px;
+    overflow:hidden;
+  }
+  .score-card .bar i{
+    display:block;
+    height:100%;
+    width:0%;
+    border-radius:3px;
+    transition:width 1s cubic-bezier(.2,.8,.3,1);
+  }
+
+  .brief-card{
+    border:1.5px solid var(--line);
+    border-radius:12px;
+    padding:26px 30px;
+    max-width:1050px;
+    opacity:0;
+    transform:translateY(16px);
+    border-left:5px solid var(--green);
+  }
+  .brief-card.show{ animation:cardIn .6s ease forwards; }
+  .brief-top{ display:flex; align-items:center; gap:14px; margin-bottom:14px; }
+  .brief-badge{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    font-weight:700;
+    color:#fff;
+    background:var(--green);
+    padding:6px 12px;
+    border-radius:6px;
+    letter-spacing:.3px;
+  }
+  .brief-title{ font-size:19px; font-weight:700; }
+  .brief-row{ font-size:14.5px; color:var(--muted); margin-top:8px; line-height:1.6; }
+  .brief-row b{ color:var(--ink); }
+
+  /* ---------- SCENE 3: PORTFOLIO ---------- */
+  .port-note{ font-size:13.5px; color:var(--muted); margin-bottom:22px; }
+  .port-list{ display:flex; flex-direction:column; gap:10px; }
+  .port-row{
+    display:grid;
+    grid-template-columns:42px 1fr 210px 150px;
+    align-items:center;
+    gap:18px;
+    padding:12px 16px;
+    border:1.5px solid var(--line);
+    border-radius:8px;
+    opacity:0;
+    transform:translateX(-14px);
+  }
+  .port-row.show{ animation:rowIn .45s ease forwards; }
+  @keyframes rowIn{ to{ opacity:1; transform:translateX(0); } }
+  .port-rank{ font-family:'JetBrains Mono',monospace; font-weight:700; color:var(--muted); font-size:15px; }
+  .port-name{ font-size:14.5px; font-weight:600; }
+  .port-sub{ font-size:12px; color:var(--muted); margin-top:2px; }
+  .port-bar-wrap{ display:flex; align-items:center; gap:10px; }
+  .port-bar{ flex:1; height:6px; border-radius:3px; background:var(--line); overflow:hidden; }
+  .port-bar i{ display:block; height:100%; width:0%; border-radius:3px; transition:width 1s ease; }
+  .port-score{ font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:700; width:46px; text-align:right; }
+  .port-tag{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11.5px;
+    font-weight:700;
+    padding:6px 10px;
+    border-radius:20px;
+    text-align:center;
+    width:fit-content;
+    justify-self:end;
+  }
+  .tag-quick{ background:rgba(52,168,83,0.12); color:var(--green); }
+  .tag-strategic{ background:rgba(251,188,5,0.16); color:#8a6d00; }
+  .tag-longterm{ background:rgba(234,67,53,0.10); color:#b23528; }
+  .tag-reconsider{ background:rgba(234,67,53,0.16); color:var(--red); }
+
+  /* ---------- SCENE 4: CLOSING ---------- */
+  #scene-close{ align-items:center; justify-content:center; text-align:center; }
+  .close-title{ font-size:44px; font-weight:800; letter-spacing:-1px; opacity:0; }
+  .close-sub{ font-size:17px; color:var(--muted); max-width:640px; margin-top:18px; opacity:0; }
+  .close-link{
+    font-family:'JetBrains Mono',monospace;
+    font-size:15px;
+    font-weight:700;
+    color:var(--blue);
+    margin-top:30px;
+    opacity:0;
+  }
+  #scene-close.active .close-title{ animation:riseIn .6s ease forwards .1s; }
+  #scene-close.active .close-sub{ animation:riseIn .6s ease forwards .3s; }
+  #scene-close.active .close-link{ animation:riseIn .6s ease forwards .5s; }
+
+  /* ---------- dots ---------- */
+  .dots{
+    position:absolute;
+    bottom:26px;
+    left:80px;
+    display:flex;
+    gap:9px;
+  }
+  .dots i{
+    width:8px; height:8px; border-radius:50%;
+    background:var(--line);
+    transition:background .3s ease, transform .3s ease;
+  }
+  .dots i.on{ background:var(--blue); transform:scale(1.25); }
+
+  .sig{
+    position:absolute;
+    bottom:24px;
+    right:80px;
+    font-size:8px;
+    color:#9AA0A6;
+    font-family:'Inter',sans-serif;
+    text-align:right;
+    line-height:1.5;
+  }
+</style>
+</head>
+<body>
+
+<div class="viewport" id="viewport">
+<div class="stage" id="stage">
+
+  <!-- SCENE 1 : HERO -->
+  <div class="scene" id="scene-hero">
+    <div class="hero-eyebrow">Live Product Walkthrough</div>
+    <div class="hero-title">Enterprise AI<br>Adoption Advisor</div>
+    <div class="hero-sub">A multi agent decision intelligence platform that evaluates and prioritizes AI initiatives across business value, risk, governance and readiness, built for BFSI and healthcare.</div>
+    <div class="hero-chips">
+      <div class="chip b">VALUE</div>
+      <div class="chip r">RISK</div>
+      <div class="chip y">COMPLEXITY</div>
+      <div class="chip g">ADOPTION</div>
+      <div class="chip b">DATA READINESS</div>
+    </div>
+  </div>
+
+  <!-- SCENE 2 : SINGLE USE CASE -->
+  <div class="scene" id="scene-single">
+    <div class="topbar">
+      <div class="brand">Enterprise AI Adoption Advisor<span class="dot">.</span></div>
+      <div class="tagline">Multi agent evaluation for BFSI and Healthcare AI use cases</div>
+    </div>
+    <div class="panel-label"><span class="on">Single Use Case</span><span>Portfolio View</span></div>
+    <div class="field-label" id="case-id-label">Choose a sample use case</div>
+    <div class="input-box"><span id="typed-text"></span></div>
+    <button class="run-btn" id="run-btn">Run assessment</button>
+
+    <div class="brief-card" id="brief-card" style="margin-bottom:26px;">
+      <div class="brief-top"><div class="brief-badge">FUND WITH CONDITIONS</div><div class="brief-title" id="brief-headline">Executive Briefing</div></div>
+      <div class="brief-row" id="brief-cond"><b>Top condition for funding:</b> —</div>
+      <div class="brief-row" id="brief-tension"><b>Key tension:</b> —</div>
+    </div>
+
+    <div class="score-row" id="score-row">
+      <div class="score-card" data-key="value"><div class="lbl">VALUE</div><div class="num"><span class="cnt">0</span><small>/100</small></div><div class="bar"><i style="background:var(--blue)"></i></div></div>
+      <div class="score-card" data-key="risk"><div class="lbl">RISK</div><div class="num"><span class="cnt">0</span><small>/100</small></div><div class="bar"><i style="background:var(--red)"></i></div></div>
+      <div class="score-card" data-key="complexity"><div class="lbl">COMPLEXITY</div><div class="num"><span class="cnt">0</span><small>/100</small></div><div class="bar"><i style="background:var(--yellow)"></i></div></div>
+      <div class="score-card" data-key="adoption"><div class="lbl">ADOPTION</div><div class="num"><span class="cnt">0</span><small>/100</small></div><div class="bar"><i style="background:var(--green)"></i></div></div>
+      <div class="score-card" data-key="data"><div class="lbl">DATA READINESS</div><div class="num"><span class="cnt">0</span><small>/100</small></div><div class="bar"><i style="background:var(--blue)"></i></div></div>
+    </div>
+  </div>
+
+  <!-- SCENE 3 : PORTFOLIO -->
+  <div class="scene" id="scene-portfolio">
+    <div class="topbar">
+      <div class="brand">Enterprise AI Adoption Advisor<span class="dot">.</span></div>
+      <div class="tagline">Portfolio View — ranked across all eight use cases</div>
+    </div>
+    <div class="panel-label"><span>Single Use Case</span><span class="on">Portfolio View</span></div>
+    <div class="port-note">Ranked Portfolio · cached across eight synthetic use cases, no live API calls needed</div>
+    <div class="port-list" id="port-list">
+      <!-- rows injected by JS -->
+    </div>
+    <div class="port-obs" id="port-obs" style="opacity:0;margin-top:22px;padding-top:18px;border-top:1.5px solid var(--line);">
+      <div style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:10px;">PORTFOLIO LEVEL OBSERVATIONS</div>
+      <div style="font-size:13.5px;line-height:1.7;color:var(--ink);">
+        Heavily skewed towards procurement and clinical operations, a strong focus on operational efficiency &nbsp;·&nbsp;
+        Higher risk and complexity scores point to the need for robust governance and change management &nbsp;·&nbsp;
+        Adoption readiness is a common challenge, underscoring organizational readiness and stakeholder engagement
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENE 4 : CLOSE -->
+  <div class="scene" id="scene-close">
+    <div class="close-title">Try it on your own use case</div>
+    <div class="close-sub">Eight preset BFSI and healthcare scenarios, or describe your own initiative, evaluated in one structured executive view.</div>
+    <div class="close-link">multi-agent-enterprise-ai-adoption-advisor-ixmdm7zxqmqrhxgkzna.streamlit.app</div>
+  </div>
+
+  <div class="dots">
+    <i class="d0 on"></i><i class="d1"></i><i class="d2"></i><i class="d3"></i><i class="d4"></i><i class="d5"></i>
+  </div>
+  <div class="sig">Source: Live product demo, Enterprise AI Adoption Advisor.<br>Vikas Sharma, Senior AI and Digital Transformation Advisor | linkedin.com/in/sharma1vikas</div>
+
+</div>
+</div>
+
+<script>
+const singleCases = [
+  {
+    id: "UC-004 · AI-assisted clinical documentation for outpatient visits",
+    desc: "Ambient AI system to draft clinical notes from physician patient conversations during outpatient consultations.",
+    headline: "Ambient AI system for clinical note drafting offers significant value, but requires careful implementation and mitigation of risks.",
+    condition: "Implementation of robust quality control and review processes for drafted clinical notes.",
+    tension: "Balancing the benefits of the ambient AI system against the risks and complexity of its implementation, particularly around data privacy and security.",
+    scores: { value:78, risk:82, complexity:85, adoption:68, data:40 }
+  },
+  {
+    id: "UC-003 · Claims triage and fraud flagging",
+    desc: "AI model to aggregate insurance claims and flag patterns consistent with historical fraud cases for human review.",
+    headline: "Implement AI-driven insurance claims triage with careful data preparation and model explainability to unlock $1.5M to $2.5M in annual value.",
+    condition: "Development of a comprehensive data labeling process for historical fraud cases.",
+    tension: "High quality, labeled historical fraud data is needed to train the model, but preparing it may delay the project timeline.",
+    scores: { value:72, risk:68, complexity:68, adoption:68, data:60 }
+  },
+  {
+    id: "UC-002 · Automated KYC document verification",
+    desc: "AI system to extract and verify identity documents during customer onboarding, reducing manual review time.",
+    headline: "Invest in AI-powered identity document extraction and verification to reduce manual review time and enhance compliance.",
+    condition: "Development of a comprehensive data standardization framework for identity documents.",
+    tension: "Balancing the benefits of automated verification against the risk of non compliance and data breaches requires careful planning.",
+    scores: { value:72, risk:70, complexity:68, adoption:72, data:60 }
+  }
+];
+let caseIdx = 0;
+
+const portfolio = [
+  {rank:1, name:"Procurement of clinical supplies with demand forecasting", id:"UC-005", score:82, tag:"Quick Win", tagClass:"tag-quick", note:"High value with low risk and moderate complexity makes it a compelling first investment.", color:"var(--green)"},
+  {rank:2, name:"AI-assisted procurement operations for indirect spend", id:"UC-001", score:76, tag:"Quick Win", tagClass:"tag-quick", note:"Balanced profile with high value, moderate risk and complexity, a close second for funding.", color:"var(--green)"},
+  {rank:3, name:"AI-assisted vendor risk assessment for procurement", id:"UC-008", score:74, tag:"Quick Win", tagClass:"tag-quick", note:"Moderate to high value, lower risk and lower complexity make it a solid near-term choice.", color:"var(--green)"},
+  {rank:4, name:"AI-based prior authorization triage", id:"UC-006", score:72, tag:"Strategic Bet", tagClass:"tag-strategic", note:"High value but higher risk and complexity require more governance and planning.", color:"var(--yellow)"},
+  {rank:5, name:"Automated KYC document verification", id:"UC-002", score:68, tag:"Strategic Bet", tagClass:"tag-strategic", note:"Moderate to high value with higher risk and complexity, needs careful planning.", color:"var(--yellow)"},
+  {rank:6, name:"Loan underwriting document summarization", id:"UC-007", score:66, tag:"Long Term Play", tagClass:"tag-longterm", note:"Moderate value with balanced risk and complexity, lower adoption readiness delays it.", color:"var(--red)"},
+  {rank:7, name:"Claims triage and fraud flagging", id:"UC-003", score:65, tag:"Long Term Play", tagClass:"tag-longterm", note:"Moderate value but higher complexity and lower adoption readiness.", color:"var(--red)"},
+  {rank:8, name:"AI-assisted clinical documentation for outpatient visits", id:"UC-004", score:62, tag:"Reconsider", tagClass:"tag-reconsider", note:"High risk and complexity outweigh the value, suggesting reevaluation.", color:"var(--red)"}
+];
+
+const portList = document.getElementById('port-list');
+portfolio.forEach(p=>{
+  const row = document.createElement('div');
+  row.className = 'port-row';
+  row.innerHTML = `
+    <div class="port-rank">#${p.rank}</div>
+    <div><div class="port-name">${p.name}</div><div class="port-sub">${p.id} — ${p.note}</div></div>
+    <div class="port-bar-wrap"><div class="port-bar"><i style="background:${p.color}" data-target="${p.score}"></i></div><div class="port-score">${p.score}</div></div>
+    <div class="port-tag ${p.tagClass}">${p.tag}</div>
+  `;
+  portList.appendChild(row);
+});
+
+function typeText(el, text, speed, done){
+  let i = 0;
+  el.textContent = '';
+  const iv = setInterval(()=>{
+    el.textContent += text[i];
+    i++;
+    if(i >= text.length){ clearInterval(iv); if(done) done(); }
+  }, speed);
+}
+
+function countUp(el, target, dur){
+  const start = performance.now();
+  function tick(now){
+    const p = Math.min(1, (now-start)/dur);
+    el.textContent = Math.round(p*target);
+    if(p<1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+const scenes = ['scene-hero','scene-single','scene-single','scene-single','scene-portfolio','scene-close'];
+let sceneIdx = 0;
+
+function showScene(idx){
+  const uniqueIds = ['scene-hero','scene-single','scene-portfolio','scene-close'];
+  uniqueIds.forEach(id=>{
+    document.getElementById(id).classList.toggle('active', scenes[idx]===id);
+  });
+  document.querySelectorAll('.dots i').forEach((d,i)=>d.classList.toggle('on', i===idx));
+
+  if(scenes[idx] === 'scene-single'){
+    runSingleScene();
+  }
+  if(scenes[idx] === 'scene-portfolio'){
+    runPortfolioScene();
+  }
+}
+
+function runSingleScene(){
+  const data = singleCases[caseIdx % singleCases.length];
+  caseIdx++;
+
+  const idLabel = document.getElementById('case-id-label');
+  const typedEl = document.getElementById('typed-text');
+  const runBtn = document.getElementById('run-btn');
+  const scoreRow = document.getElementById('score-row');
+  const briefCard = document.getElementById('brief-card');
+
+  idLabel.textContent = data.id;
+  document.getElementById('brief-headline').textContent = data.headline;
+  document.getElementById('brief-cond').innerHTML = '<b>Top condition for funding:</b> ' + data.condition;
+  document.getElementById('brief-tension').innerHTML = '<b>Key tension:</b> ' + data.tension;
+
+  typedEl.textContent = '';
+  runBtn.classList.remove('pulse');
+  scoreRow.querySelectorAll('.score-card').forEach(c=>{
+    c.classList.remove('show');
+    c.querySelector('.cnt').textContent = '0';
+    c.querySelector('.bar i').style.width = '0%';
+  });
+  briefCard.classList.remove('show');
+
+  typeText(typedEl, data.desc, 22, ()=>{
+    setTimeout(()=>{
+      runBtn.classList.add('pulse');
+      setTimeout(()=>{
+        briefCard.classList.add('show');
+        setTimeout(()=>{
+          scoreRow.querySelectorAll('.score-card').forEach((c,i)=>{
+            setTimeout(()=>{
+              c.classList.add('show');
+              const target = data.scores[c.dataset.key];
+              countUp(c.querySelector('.cnt'), target, 800);
+              c.querySelector('.bar i').style.width = target + '%';
+            }, i*120);
+          });
+        }, 500);
+      }, 450);
+    }, 350);
+  });
+}
+
+function runPortfolioScene(){
+  const rows = document.querySelectorAll('.port-row');
+  const obs = document.getElementById('port-obs');
+  obs.style.transition = 'opacity .6s ease';
+  obs.style.opacity = 0;
+  rows.forEach(r=>{
+    r.classList.remove('show');
+    r.querySelector('.port-bar i').style.width = '0%';
+  });
+  rows.forEach((r,i)=>{
+    setTimeout(()=>{
+      r.classList.add('show');
+      const bar = r.querySelector('.port-bar i');
+      bar.style.width = bar.dataset.target + '%';
+    }, i*180);
+  });
+  setTimeout(()=>{ obs.style.opacity = 1; }, rows.length*180 + 300);
+}
+
+function loop(){
+  showScene(sceneIdx);
+  const durations = [4200, 7600, 7600, 7600, 7200, 4200];
+  setTimeout(()=>{
+    sceneIdx = (sceneIdx+1) % scenes.length;
+    loop();
+  }, durations[sceneIdx]);
+}
+function fitStage(){
+  const stage = document.getElementById('stage');
+  const scale = Math.min(window.innerWidth/1600, window.innerHeight/900);
+  stage.style.transform = 'scale(' + scale + ')';
+}
+window.addEventListener('resize', fitStage);
+fitStage();
+
+loop();
+</script>
+
+</body>
+</html>
