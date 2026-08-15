@@ -205,11 +205,12 @@ header{
 
     justify-content:center;
 
-    gap:32px;
+    gap:20px;
 
     flex-wrap:wrap;
 
 }
+
 .btn-primary{
 
     display:inline-block;
@@ -236,13 +237,32 @@ header{
 
 }
 
+/* btn-primary is white-on-navy for the hero, but invisible when the same
+   button sits inside a white box like .advisor-box or .profile-content.
+   Give it a solid, visible fill in those contexts instead. */
+
+.advisor-box .btn-primary,
+.profile-content .btn-primary{
+
+    background:#174EA6;
+    color:#ffffff;
+
+}
+
+.advisor-box .btn-primary:hover,
+.profile-content .btn-primary:hover{
+
+    background:#123B7C;
+
+}
+
 .btn-secondary{
 
     display:inline-block;
 
-    border:1.5px solid rgba(255,255,255,.5);
+    border:2px solid white;
 
-    color:rgba(255,255,255,.85);
+    color:white;
 
     padding:15px 32px;
 
