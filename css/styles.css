@@ -257,6 +257,23 @@ header{
 
 }
 
+/* One specific button, the live tool launch, styled cherry to stand out
+   as the single most important action on the page, distinct from every
+   other blue btn-primary button elsewhere on the site. */
+
+#liveAdvisorBtn{
+
+    background:#B0223A;
+    color:#ffffff;
+
+}
+
+#liveAdvisorBtn:hover{
+
+    background:#8A1A2D;
+
+}
+
 .btn-secondary{
 
     display:inline-block;
