@@ -1,7 +1,7 @@
 /* ==========================================
-   NET2USER
-   Enterprise AI, Transformation & Intelligence
-   Version 1.0
+NET2USER
+Enterprise AI, Transformation & Intelligence
+Version 1.0
 ========================================== */
 
 *{
@@ -15,106 +15,67 @@ html{
 }
 
 body{
-
     font-family:"Segoe UI",Arial,sans-serif;
-
     background:#ffffff;
-
     color:#2d3748;
-
     line-height:1.7;
-
 }
 
 img{
-
     max-width:100%;
-
     display:block;
-
 }
 
 .container{
-
     width:90%;
-
     max-width:1200px;
-
     margin:auto;
-
 }
 
 /* ===========================
-   Navigation
+Navigation
 =========================== */
 
 header{
-
     position:sticky;
-
     top:0;
-
     z-index:999;
-
     background:#ffffff;
-
     box-shadow:0 2px 10px rgba(0,0,0,.08);
-
 }
 
 .navbar{
-
     display:flex;
-
     justify-content:space-between;
-
     align-items:center;
-
     padding:18px 0;
-
 }
 
 .logo{
-
     color:#174EA6;
-
     font-size:32px;
-
     font-weight:700;
-
     letter-spacing:1px;
-
 }
 
 .nav-links{
-
     display:flex;
-
     list-style:none;
-
     gap:30px;
-
 }
 
 .nav-links a{
-
     text-decoration:none;
-
     color:#444;
-
     font-weight:600;
-
     transition:.3s;
-
 }
 
 .nav-links a:hover{
-
     color:#174EA6;
-
 }
-.menu-toggle{
 
+.menu-toggle{
     display:none;
     flex-direction:column;
     justify-content:space-between;
@@ -124,183 +85,120 @@ header{
     border:none;
     cursor:pointer;
     padding:0;
-
 }
 
 .menu-toggle span{
-
     display:block;
     height:3px;
     width:100%;
     background:#174EA6;
     border-radius:2px;
-
 }
 
 /* ===========================
-   Hero
+Hero
 =========================== */
 
 .hero{
-
     background:linear-gradient(
-    135deg,
-    #0B1F3A 0%,
-    #174EA6 55%,
-    #0F766E 100%);
-
+        135deg,
+        #0B1F3A 0%,
+        #174EA6 55%,
+        #0F766E 100%
+    );
     color:white;
-
     text-align:center;
-
     padding:80px 20px 40px;
-
 }
 
 .eyebrow{
-
     display:inline-block;
-
     padding:8px 18px;
-
     background:rgba(255,255,255,.15);
-
     border-radius:40px;
-
     margin-bottom:30px;
-
     font-size:15px;
-
     letter-spacing:.5px;
-
 }
 
 .hero h1{
-
     font-size:64px;
-
     line-height:1.15;
-
     margin-bottom:30px;
-
 }
 
 .hero p{
-
     max-width:820px;
-
     margin:auto;
-
     font-size:22px;
-
     opacity:.95;
-
 }
 
 .buttons{
-
     margin-top:45px;
-
     display:flex;
-
     justify-content:center;
-
     gap:20px;
-
     flex-wrap:wrap;
-
 }
 
 .btn-primary{
-
     display:inline-block;
-
     background:white;
-
     color:#174EA6;
-
     padding:15px 32px;
-
     border-radius:8px;
-
     text-decoration:none;
-
     font-weight:700;
-
     transition:.3s;
-
 }
 
 .btn-primary:hover{
-
     transform:translateY(-3px);
-
 }
 
-/* btn-primary is white-on-navy for the hero, but invisible when the same
-   button sits inside a white box like .advisor-box or .profile-content.
-   Give it a solid, visible fill in those contexts instead. */
-
+/* Primary buttons inside white content panels */
 .advisor-box .btn-primary,
 .profile-content .btn-primary{
-
     background:#174EA6;
     color:#ffffff;
     margin-top:20px;
-
 }
 
 .advisor-box .btn-primary:hover,
 .profile-content .btn-primary:hover{
-
     background:#123B7C;
-
 }
 
-/* One specific button, the live tool launch, styled cherry to stand out
-   as the single most important action on the page, distinct from every
-   other blue btn-primary button elsewhere on the site. */
-
+/* Live Advisor CTA */
 #liveAdvisorBtn{
-
     background:#B0223A;
     color:#ffffff;
-
 }
 
 #liveAdvisorBtn:hover{
-
     background:#8A1A2D;
-
 }
 
 .btn-secondary{
-
     display:inline-block;
-
     border:2px solid white;
-
     color:white;
-
     padding:15px 32px;
-
     border-radius:8px;
-
     text-decoration:none;
-
     font-weight:700;
-
     transition:.3s;
-
 }
 
 .btn-secondary:hover{
-
     background:white;
-
     color:#174EA6;
+}
 
-}/* ===== Sections ===== */
+/* ===========================
+Sections
+=========================== */
 
 section{
     padding:30px 0;
@@ -321,232 +219,208 @@ h2{
     margin-bottom:10px;
 }
 
-/* ===== Cards ===== */
+/* ===========================
+Cards
+=========================== */
 
 .experience-grid,
 .services-grid,
 .research-grid,
 .insights-grid{
-
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
     gap:30px;
-
 }
 
 .experience-card,
 .service-card,
 .research-card,
 .insight-card{
-
     background:#fff;
     padding:30px;
     border-radius:12px;
     box-shadow:0 8px 25px rgba(0,0,0,.08);
     transition:.3s;
-
 }
 
 .experience-card:hover,
 .service-card:hover,
 .research-card:hover,
 .insight-card:hover{
-
     transform:translateY(-8px);
-
 }
 
 .service-card img{
-
     width:100%;
     height:180px;
     object-fit:cover;
     border-radius:10px;
     margin-bottom:20px;
-
 }
 
-/* ===== Advisor ===== */
+/* ===========================
+Advisor
+=========================== */
 
 .advisor{
-
     background:#F5F7FA;
-
 }
 
 .advisor-box{
-
     max-width:900px;
     margin:auto;
     background:#fff;
     padding:40px;
     border-radius:12px;
     box-shadow:0 8px 25px rgba(0,0,0,.08);
-
 }
 
 .advisor-box ul{
-
     margin:25px 0;
     padding-left:20px;
-
 }
 
 .advisor-box li{
-
     margin-bottom:12px;
-
 }
 
-/* ===== Profile ===== */
+/* ===========================
+Profile
+=========================== */
 
 .profile-box{
-
     display:grid;
     grid-template-columns:300px 1fr;
     gap:40px;
     align-items:center;
-
 }
 
 .profile-image img{
-
     border-radius:12px;
-
 }
 
-/* ===== Contact ===== */
+/* ===========================
+Contact
+=========================== */
 
 .contact{
-
     background:#F5F7FA;
-   padding-top:15px;
-
+    padding-top:15px;
 }
-
-.contact-grid{
-
-    display:grid;
-    grid-template-columns:280px 1fr;
-    gap:40px;
-
-}
-
-/* Contact spacing fix: tighten the gap below the intro text
-   and align the info column with the top of the form column */
 
 .contact .section-intro{
-
     margin-bottom:15px;
-
 }
 
 .contact-grid{
-
+    display:grid;
+    grid-template-columns:320px 1fr;
+    gap:60px;
     align-items:start;
+    max-width:1100px;
+    margin:40px auto 0;
+}
 
+.contact-info{
+    padding-top:20px;
+}
+
+.contact-info h3{
+    margin-bottom:10px;
 }
 
 .contact-info p{
+    margin-bottom:18px;
+}
 
-    margin-bottom:24px;
-
+.contact-form,
+.contact-form form{
+    width:100%;
 }
 
 .contact-form input,
 .contact-form textarea{
-
     width:100%;
     padding:15px;
     margin-bottom:20px;
     border:1px solid #ddd;
     border-radius:8px;
     font-size:16px;
-
 }
 
 .contact-form button{
-
     border:none;
     cursor:pointer;
-
 }
 
-/* ===== Footer ===== */
+/* ===========================
+Footer
+=========================== */
 
 footer{
-
     background:#0B1F3A;
     color:white;
     text-align:center;
     padding:50px 20px;
-
 }
 
 footer hr{
-
     margin:25px 0;
     border:none;
     border-top:1px solid rgba(255,255,255,.2);
-
 }
 
-/* ===== Mobile ===== */
+/* ===========================
+Mobile
+=========================== */
 
 @media(max-width:768px){
+    .hero h1{
+        font-size:42px;
+    }
 
-.hero h1{
+    .navbar{
+        flex-direction:row;
+        justify-content:space-between;
+    }
 
-    font-size:42px;
+    .menu-toggle{
+        display:flex;
+    }
 
-}
+    .nav-links{
+        display:none;
+        flex-direction:column;
+        position:absolute;
+        top:70px;
+        left:0;
+        width:100%;
+        background:#ffffff;
+        box-shadow:0 8px 20px rgba(0,0,0,.1);
+        padding:20px 0;
+        gap:0;
+    }
 
-.navbar{
+    .nav-links.active{
+        display:flex;
+    }
 
-    flex-direction:row;
-    justify-content:space-between;
+    .nav-links li{
+        text-align:center;
+        padding:15px 0;
+    }
 
-}
+    .profile-box,
+    .contact-grid{
+        grid-template-columns:1fr;
+    }
 
-.menu-toggle{
+    .contact-grid{
+        gap:30px;
+        margin-top:25px;
+    }
 
-    display:flex;
-
-}
-
-.nav-links{
-
-    display:none;
-    flex-direction:column;
-    position:absolute;
-    top:70px;
-    left:0;
-    width:100%;
-    background:#ffffff;
-    box-shadow:0 8px 20px rgba(0,0,0,.1);
-    padding:20px 0;
-    gap:0;
-
-}
-
-.nav-links.active{
-
-    display:flex;
-
-}
-
-.nav-links li{
-
-    text-align:center;
-    padding:15px 0;
-
-}
-
-.profile-box,
-.contact-grid{
-
-    grid-template-columns:1fr;
-
-}
-
+    .contact-info{
+        padding-top:0;
+    }
 }
