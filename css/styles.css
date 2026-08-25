@@ -424,3 +424,35 @@ Mobile
         padding-top:0;
     }
 }
+
+/* AI Governance Lens: teal secondary action */
+a.btn-primary.governance-demo-btn,
+.advisor-box a.btn-primary.governance-demo-btn{
+  background:#0F766E !important;
+  background-color:#0F766E !important;
+  color:#ffffff !important;
+  border:2px solid #0F766E !important;
+}
+
+a.btn-primary.governance-demo-btn:hover,
+.advisor-box a.btn-primary.governance-demo-btn:hover{
+  background:#0B5D57 !important;
+  background-color:#0B5D57 !important;
+  border-color:#0B5D57 !important;
+  color:#ffffff !important;
+}
+
+/* Enterprise AI Adoption Advisor: cherry card action */
+a.btn-primary.advisor-demo-btn{
+  background:#B0223A !important;
+  background-color:#B0223A !important;
+  color:#ffffff !important;
+  border:2px solid #B0223A !important;
+}
+
+a.btn-primary.advisor-demo-btn:hover{
+  background:#8A1A2D !important;
+  background-color:#8A1A2D !important;
+  border-color:#8A1A2D !important;
+  color:#ffffff !important;
+}

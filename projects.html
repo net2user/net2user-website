@@ -40,9 +40,7 @@
 
 <section class="hero">
     <div class="hero-content">
-        <span class="eyebrow">AI Products</span>
-
-        <h1>AI Solutions</h1>
+<h1>AI Solutions</h1>
 
         <p>
             Practical decision-support tools that help organizations move from
@@ -61,8 +59,7 @@
 
 <section class="services" id="adoption-advisor" id="ai-solutions">
     <div class="container">
-        <span class="eyebrow">AI Products</span>
-        <h2>AI Solutions</h2>
+<h2>AI Solutions</h2>
         <p class="section-intro">
             Practical decision-support tools designed to help organizations
             prioritize, govern, and operationalize enterprise AI with greater
@@ -132,14 +129,44 @@ Examine an AI initiative through governance, accountability, risk, and responsib
 <p class="section-intro">
 See how the tools turn an enterprise AI question into structured analysis, recommendations, and decision support.
 </p>
-            <div class="demo-launch">
-                <a href="adoption-advisor-demo.html"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   class="btn-primary">
-                    Open the Advisor Demo
-                </a>
-            </div>
+
+<div class="services-grid">
+<div class="service-card">
+<h3>Enterprise AI Adoption Advisor</h3>
+<p>
+See a use case move from an initial idea to an executive briefing, scorecards, and a funding recommendation.
+</p>
+<img
+    src="images/enterprise-ai-adoption-advisor-demo-220fps.gif"
+    alt="Enterprise AI Adoption Advisor animated walkthrough"
+    loading="lazy"
+    style="display:block;width:100%;height:auto;border-radius:12px;margin:20px 0;">
+<a href="adoption-advisor-demo.html"
+   target="_blank"
+   rel="noopener noreferrer"
+   class="btn-primary advisor-demo-btn">
+    Open the Advisor Demo
+</a>
+</div>
+
+<div class="service-card">
+<h3>AI Governance Lens</h3>
+<p>
+See an RBI governance question become a structured response with evidence and supporting references.
+</p>
+<img
+    src="images/ai_governance_lens_322fps.gif"
+    alt="AI Governance Lens RBI governance query walkthrough"
+    loading="lazy"
+    style="display:block;width:100%;height:auto;border-radius:12px;margin:20px 0;">
+<a href="demos/rbi-query-demo.html"
+   target="_blank"
+   rel="noopener noreferrer"
+   class="btn-primary governance-demo-btn">
+    Open RBI Query Demo
+</a>
+</div>
+</div>
 </div>
 </section>
 
@@ -204,12 +231,31 @@ The goal is not simply to introduce AI capabilities. It is to help organizations
 <section class="advisor">
 <div class="container">
 <div class="advisor-box">
-<h3>Try It Yourself</h3>
-<p>
-Preset use cases return instantly from cached results, no API cost or wait involved. A fresh live run against your own custom use case description is also available directly in the tool. Since the demo runs on a free hosting tier, it may take a few extra seconds to wake up if it hasn't had recent traffic, worth a moment's patience on first load.
-</p>
-<a href="https://multi-agent-enterprise-ai-adoption-advisor-ixmdm7zxqmqrhxgkzna.streamlit.app/" target="_blank" rel="noopener" id="liveAdvisorBtn" class="btn-primary">Open the Live Advisor →</a>
-</div>
+                <h2>Try It Yourself</h2>
+                <p>
+                    Explore both decision-support tools directly. The Enterprise AI Adoption
+                    Advisor evaluates whether an AI initiative is ready to fund and implement,
+                    while the AI Governance Lens helps teams ask, verify, and act on governance
+                    guidance with an evidence trail.
+                </p>
+
+                <div class="buttons advisor-buttons">
+                    <a href="https://ai-adoption-advisor.streamlit.app"
+                       class="btn-primary"
+                       id="liveAdvisorBtn"
+                       target="_blank"
+                       rel="noopener">
+                        Open the Live Advisor →
+                    </a>
+
+                    <a href="demos/rbi-query-demo.html"
+                       class="btn-primary governance-demo-btn"
+                       target="_blank"
+                       rel="noopener">
+                        Open the RBI Query Demo →
+                    </a>
+                </div>
+            </div>
 </div>
 </section>
 
