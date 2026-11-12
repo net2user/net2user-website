@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Governance Lens | Enterprise Workflow Simulation</title>
+<style>
+:root{--ink:#17243a;--muted:#66758b;--line:#d7e0eb;--panel:#fff;--bg:#f4f7fb;--blue:#3568a8;--green:#15945d;--amber:#d99518;--red:#d84b51;--violet:#7656bd}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.4 "Segoe UI",Arial,sans-serif}
+header{height:70px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 28px}
+.brand{font-size:20px;font-weight:700;letter-spacing:.1px}.sub{color:var(--muted);font-size:11px;margin-top:2px}
+.topright{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:11px}
+.pill{border:1px solid var(--line);border-radius:20px;padding:6px 11px;background:#fff}
+main{padding:18px 22px 14px;max-width:1600px;margin:auto}
+.intro{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:13px}
+h1{font-size:19px;margin:0 0 3px}.intro p{margin:0;color:var(--muted);font-size:11px}
+.legend{display:flex;gap:13px;font-size:10px;color:var(--muted)}.legend span{display:flex;align-items:center;gap:5px}
+.swatch{width:8px;height:8px;border-radius:50%;display:inline-block}
+.layout{display:grid;grid-template-columns:1.12fr .88fr;gap:14px;align-items:stretch}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:0 2px 10px #203c5b0a;overflow:hidden;min-width:0}
+.panelhead{height:54px;padding:11px 15px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+.panelhead strong{font-size:13px}.panelhead small{display:block;color:var(--muted);font-size:10px;margin-top:2px}
+.live{font-size:10px;color:var(--green);display:flex;align-items:center;gap:6px}.live:before{content:"";width:7px;height:7px;background:var(--green);border-radius:50%;box-shadow:0 0 0 3px #15945d18}
+.diagram{padding:8px 10px 4px}
+svg{width:100%;height:auto;display:block;overflow:visible}
+.node rect{fill:#f9fbfe;stroke:#aabbd0;stroke-width:1.4;rx:9}
+.node text{font-size:11px;fill:#24344b;font-weight:600;text-anchor:middle;dominant-baseline:middle}
+.node .subtext{font-size:9px;fill:#718096;font-weight:400}
+.node.active rect{stroke:var(--blue);stroke-width:2.8;fill:#eef5ff}
+.node.active.green rect{stroke:var(--green);fill:#e9f8ef;filter:drop-shadow(0 0 7px #15945d88)}
+.node.active.amber rect{stroke:var(--amber);fill:#fff5dc;filter:drop-shadow(0 0 7px #d9951888)}
+.node.active.red rect{stroke:var(--red);fill:#ffeded;filter:drop-shadow(0 0 7px #d84b5188)}
+.node.active.violet rect{stroke:var(--violet);fill:#f2edff;filter:drop-shadow(0 0 7px #7656bd88)}
+.node.active text{font-weight:800}
+.dot{filter:drop-shadow(0 0 5px currentColor) drop-shadow(0 0 9px currentColor)}
+.node.done rect{stroke:#8eb5a0;fill:#f1faf5}
+.edge{fill:none;stroke:#aab8c9;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.edge.active{stroke:var(--blue);stroke-width:3.2}
+.edge.green{stroke:var(--green);filter:drop-shadow(0 0 4px #15945d88)}
+.edge.amber{stroke:var(--amber);filter:drop-shadow(0 0 4px #d9951888)}
+.edge.red{stroke:var(--red);filter:drop-shadow(0 0 4px #d84b5188)}
+.edge.violet{stroke:var(--violet);filter:drop-shadow(0 0 4px #7656bd88)}
+.edge-label{font-size:9px;fill:#65758b}
+.dot{filter:drop-shadow(0 1px 3px #10243d66)}
+.statusbar{margin:0 14px 13px;border-radius:8px;background:#f4f7fb;padding:9px 11px;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:42px}
+.statusbar b{font-size:11px}.statusbar span{font-size:10px;color:var(--muted)}
+.transaction{padding:13px 14px 14px}
+.txflow{display:flex;flex-direction:column;gap:0;position:relative;padding-left:19px}
+.txflow:before{content:"";position:absolute;left:7px;top:13px;bottom:17px;width:2px;background:#d7e0eb}
+.txstep{position:relative;display:grid;grid-template-columns:19px 1fr auto;gap:8px;align-items:center;min-height:48px;padding:5px 0}
+.txstep:before{content:"";position:absolute;left:-16px;top:18px;width:9px;height:9px;border-radius:50%;background:#c3cedb;border:2px solid white;z-index:1;box-shadow:0 0 0 1px #c3cedb}
+.txstep.active:before{background:var(--blue);box-shadow:0 0 0 3px #3568a826}
+#t2.active{background:#eaf2ff;border:1px solid #3568a8;border-radius:8px;padding-left:7px;margin-left:-7px;box-shadow:0 0 0 3px #3568a822}
+#t2.active .txname{color:#1e5798;font-weight:800}
+#t2.active .tag{background:#dceaff;color:#174f8d;font-weight:800}
+.txstep.complete:before{background:var(--green);box-shadow:0 0 0 1px var(--green)}
+.txstep.hold:before{background:var(--red);box-shadow:0 0 0 1px var(--red)}
+.txstep.review:before{background:var(--violet);box-shadow:0 0 0 1px var(--violet)}
+.txname{font-size:11px;font-weight:650}.txdesc{font-size:9px;color:var(--muted);margin-top:2px}
+.tag{font-size:9px;border-radius:12px;padding:4px 7px;background:#f0f3f7;color:#6b7889;white-space:nowrap}
+.tag.green{background:#e9f7ef;color:#137a4d}.tag.amber{background:#fff5df;color:#96620c}.tag.red{background:#ffeded;color:#b33139}.tag.violet{background:#f1edfb;color:#6846ad}
+.result{margin-top:11px;border:1px solid var(--line);border-radius:9px;padding:11px 12px;min-height:108px}
+.resulttop{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.decision{font-size:16px;font-weight:800;letter-spacing:.5px}.decision.green{color:var(--green)}.decision.amber{color:var(--amber)}.decision.red{color:var(--red)}.decision.violet{color:var(--violet)}
+.result p{margin:0;color:#4d5c70;font-size:10px;line-height:1.5}.feed{margin-top:8px;background:#f5f8fc;border-radius:6px;padding:7px 8px;font:9px/1.45 Consolas,monospace;color:#3e5878;overflow-wrap:anywhere}
+.controls{display:flex;align-items:center;justify-content:space-between;margin-top:13px;gap:12px}
+.progress{font-size:10px;color:var(--muted)}.buttons{display:flex;gap:8px}
+button{border:1px solid #cbd6e3;border-radius:7px;background:#fff;color:#34445b;padding:8px 12px;font-size:10px;font-weight:600;cursor:pointer}
+button.primary{background:#234f82;color:white;border-color:#234f82}button:hover{filter:brightness(.97)}
+footer{margin-top:12px;color:#718096;font-size:9px;display:flex;justify-content:space-between;gap:12px}
+@media(max-width:1100px){.layout{grid-template-columns:1fr}.intro{display:block}.legend{margin-top:10px}}
+@media(max-width:620px){
+ body{font-size:12px}
+ header{padding:12px 13px;align-items:flex-start;gap:8px}
+ .brand{font-size:17px}.sub{font-size:9px}
+ main{padding:10px}
+ h1{font-size:17px;line-height:1.25}
+ .intro{display:block;margin-bottom:10px}
+ .intro p{font-size:10px}
+ .legend{display:flex;flex-wrap:wrap;gap:8px 12px;margin-top:9px}
+ .layout{grid-template-columns:minmax(0,1fr);gap:10px}
+ .panelhead{height:auto;min-height:48px;padding:9px 10px;gap:7px}
+ .panelhead strong{font-size:11px}.panelhead small{font-size:9px}
+ .live{font-size:9px}
+ .diagram{padding:5px}
+ .statusbar{margin:0 7px 8px;padding:8px;font-size:10px}
+ .transaction{padding:9px 10px}
+ .txstep{min-height:44px}
+ .txname{font-size:10px}.txdesc{font-size:9px}
+ .result{padding:9px;min-height:0}
+ .controls{flex-wrap:wrap}
+ footer{font-size:8px;flex-direction:column}
+ .topright{display:none}
+}
+</style>
+</head>
+<body>
+<header>
+ <div><div class="brand">AI Governance Lens</div><div class="sub">Enterprise workflow governance · API-mediated decisioning · Human oversight</div></div>
+ <div class="topright"><span class="pill">ILLUSTRATIVE POC</span><span>Transaction flow simulation</span></div>
+</header>
+<main>
+ <div class="intro">
+  <div><h1>Governance decision flow inside an enterprise transaction</h1><p>A business event invokes governance services; the decision is returned to the originating workflow for controlled execution.</p></div>
+  <div class="legend"><span><i class="swatch" style="background:#15945d"></i>Allow</span><span><i class="swatch" style="background:#d99518"></i>Warn</span><span><i class="swatch" style="background:#d84b51"></i>Block</span><span><i class="swatch" style="background:#7656bd"></i>Escalate</span></div>
+ </div>
+ <div class="layout">
+  <section class="panel">
+   <div class="panelhead"><div><strong>01 · AI Governance decision engine</strong><small>Policy checks and decision branches · animated transaction trace</small></div><div class="live" id="liveLabel">Processing scenario 1 of 4</div></div>
+   <div class="diagram">
+   <svg id="govSvg" viewBox="0 0 760 540" role="img" aria-label="AI governance decision tree">
+    <defs><marker id="arr" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6" fill="#aab8c9"/></marker></defs>
+    <path class="edge" id="e0" d="M380 56 V78" marker-end="url(#arr)"/>
+    <path class="edge" id="e1" d="M380 126 V147" marker-end="url(#arr)"/>
+    <path class="edge" id="e2" d="M380 195 V215" marker-end="url(#arr)"/>
+    <path class="edge" id="e3" d="M380 263 V284" marker-end="url(#arr)"/>
+    <path class="edge" id="e4" d="M380 332 V352" marker-end="url(#arr)"/>
+    <path class="edge" id="e5" d="M380 400 V418" marker-end="url(#arr)"/>
+    <path class="edge" id="e6" d="M380 466 V478" marker-end="url(#arr)"/>
+    <path class="edge" id="branchA" d="M380 240 C270 240 185 240 185 284" />
+    <path class="edge" id="branchB" d="M380 308 C500 308 575 308 575 352" />
+    <path class="edge" id="branchC" d="M380 376 C260 376 185 376 185 418" />
+    <path class="edge" id="branchD" d="M380 376 C500 376 575 376 575 418" />
+    <g class="node" id="n0"><rect x="270" y="10" width="220" height="46"/><text x="380" y="29">Enterprise event received</text><text class="subtext" x="380" y="43">POST /v1/governance/evaluate</text></g>
+    <g class="node" id="n1"><rect x="270" y="80" width="220" height="46"/><text x="380" y="99">Enrich request context</text><text class="subtext" x="380" y="113">identity · purpose · data · model</text></g>
+    <g class="node" id="n2"><rect x="270" y="149" width="220" height="46"/><text x="380" y="168">Authorization check</text><text class="subtext" x="380" y="182">is data access approved?</text></g>
+    <g class="node" id="n3"><rect x="270" y="217" width="220" height="46"/><text x="380" y="236">Data sensitivity check</text><text class="subtext" x="380" y="250">sensitive customer / financial data?</text></g>
+    <g class="node" id="n4"><rect x="270" y="286" width="220" height="46"/><text x="380" y="305">Model destination check</text><text class="subtext" x="380" y="319">approved internal or external model?</text></g>
+    <g class="node" id="n5"><rect x="270" y="354" width="220" height="46"/><text x="380" y="373">Impact assessment</text><text class="subtext" x="380" y="387">does the request need human review?</text></g>
+    <g class="node" id="n6"><rect x="270" y="420" width="220" height="46"/><text x="380" y="439">Decision and response</text><text class="subtext" x="380" y="453">ALLOW · WARN · BLOCK · ESCALATE</text></g>
+    <g class="node" id="n7"><rect x="270" y="478" width="220" height="34"/><text x="380" y="495">Trace + audit event</text></g>
+    <g class="node" id="outA"><rect x="35" y="284" width="185" height="48"/><text x="127" y="303">BLOCK branch</text><text class="subtext" x="127" y="318">stop sensitive transfer</text></g>
+    <g class="node" id="outB"><rect x="540" y="352" width="185" height="48"/><text x="632" y="371">ESCALATE branch</text><text class="subtext" x="632" y="386">human disposition</text></g>
+    <g class="node" id="outC"><rect x="35" y="418" width="185" height="48"/><text x="127" y="437">WARN branch</text><text class="subtext" x="127" y="452">safeguards required</text></g>
+    <g class="node" id="outD"><rect x="540" y="418" width="185" height="48"/><text x="632" y="437">ALLOW branch</text><text class="subtext" x="632" y="452">approved · proceed</text></g>
+    <text class="edge-label" x="395" y="274">continue checks</text>
+    <text class="edge-label" x="232" y="274">rule triggered</text>
+    <circle id="traveller" class="dot" cx="380" cy="33" r="6" fill="#3568a8" style="transition:cx .55s linear,cy .55s linear;"/>
+   </svg>
+   </div>
+   <div class="statusbar"><div><b id="govStatus">Receiving enterprise transaction</b><br><span id="govDetail">The calling application submits context for policy evaluation.</span></div><span id="scenarioCount">01 / 04</span></div>
+  </section>
+  <section class="panel">
+   <div class="panelhead"><div><strong>02 · Enterprise transaction workflow</strong><small>Credit application processing · decision consumed by the calling system</small></div><div class="pill" id="txState">Awaiting decision</div></div>
+   <div class="transaction">
+    <div class="txflow" id="txFlow">
+     <div class="txstep" id="t0"><div></div><div><div class="txname">Credit application received</div><div class="txdesc">Core lending platform · application event</div></div><span class="tag">EVENT</span></div>
+     <div class="txstep" id="t1"><div></div><div><div class="txname">Prepare transaction context</div><div class="txdesc">Customer, purpose, data class and model metadata</div></div><span class="tag">ENRICH</span></div>
+     <div class="txstep" id="t2"><div></div><div><div class="txname">Invoke AI Governance Lens</div><div class="txdesc">POST /v1/governance/evaluate</div></div><span class="tag">API CALL</span></div>
+     <div class="txstep" id="t3"><div></div><div><div class="txname">Consume governance response</div><div class="txdesc">decision · rationale · required_action · trace_id</div></div><span class="tag">WEBHOOK / API</span></div>
+     <div class="txstep" id="t4"><div></div><div><div class="txname" id="branchTitle">Route transaction</div><div class="txdesc" id="branchDesc">Workflow engine selects the appropriate path</div></div><span class="tag" id="branchTag">ROUTE</span></div>
+     <div class="txstep" id="t5"><div></div><div><div class="txname" id="endTitle">Complete controlled action</div><div class="txdesc" id="endDesc">Continue, hold, or route for human disposition</div></div><span class="tag" id="endTag">ACTION</span></div>
+     <div class="txstep" id="t6"><div></div><div><div class="txname">Write transaction and audit record</div><div class="txdesc">Decision trace linked to originating application</div></div><span class="tag">AUDIT</span></div>
+    </div>
+    <div class="result">
+     <div class="resulttop"><span style="font-size:10px;color:var(--muted)">GOVERNANCE RESPONSE TO CALLING WORKFLOW</span><strong class="decision" id="decision">—</strong></div>
+     <p id="summary">Waiting for the first transaction scenario to run.</p>
+     <div class="feed" id="feed">POST /webhooks/transaction-result · response payload will appear here</div>
+    </div>
+    <div class="controls"><div class="progress" id="progress">Scenario 1 of 4 · autoplay sequence</div><div class="buttons"><button id="pauseBtn">Pause</button><button id="replayBtn" class="primary">Replay sequence</button></div></div>
+   </div>
+  </section>
+ </div>
+ <footer><span>Illustrative enterprise integration pattern. Decision rules are deterministic demo rules, not a legal or regulatory compliance determination.</span><span>Proposed API and webhook contracts · downstream actions simulated</span></footer>
+</main>
+<script>
+const scenarios=[
+ {name:"Internal operations summary",decision:"ALLOW",color:"#15945d",cls:"green",path:[0,1,2,3,4,5,"outD",6,7],checks:["Access approved","Internal operational data","Approved internal model","Low impact"],summary:"No configured blocking condition is triggered. The originating workflow receives an ALLOW response and continues its normal processing path.",route:"Continue underwriting workflow",routeDesc:"Proceed to the next lending decision stage",action:"Continue application processing",actionDesc:"Normal business controls remain in force",tag:"CONTINUE",payload:'{"decision":"ALLOW","required_action":"CONTINUE","trace_id":"AGL-ALW-1042"}',steps:[0,1,2,3,4,5,6]},
+ {name:"Credit risk assessment",decision:"WARN",color:"#d99518",cls:"amber",path:[0,1,2,3,"outC",4,5,6,7],checks:["Access approved","Sensitive customer data","Approved internal model","Moderate impact"],summary:"Sensitive information creates a material risk indicator. The workflow receives WARN with safeguards and acknowledgement requirements before continuing.",route:"Apply safeguards",routeDesc:"Minimise data and confirm purpose and access",action:"Continue with conditions",actionDesc:"Retain human review path and safeguards",tag:"CONTINUE WITH SAFEGUARDS",payload:'{"decision":"WARN","required_action":"APPLY_SAFEGUARDS","trace_id":"AGL-WRN-2086"}',steps:[0,1,2,3,4,5,6]},
+ {name:"External model data transfer",decision:"BLOCK",color:"#d84b51",cls:"red",path:[0,1,2,3,4,"outA",6,7],checks:["Access approved","Sensitive customer data","Unapproved external model","Transfer prohibited by demo rule"],summary:"Sensitive customer information is routed to an unapproved external model. The configured demo rule returns BLOCK; the transaction is held and remediation is returned.",route:"Hold outbound data transfer",routeDesc:"Do not send customer data to the external model",action:"Return remediation to originator",actionDesc:"Use an approved model or remove sensitive data",tag:"HOLD / REMEDIATE",payload:'{"decision":"BLOCK","required_action":"HOLD_AND_REMEDIATE","trace_id":"AGL-BLK-3319"}',steps:[0,1,2,3,4,5,6]},
+ {name:"High-impact credit decision",decision:"ESCALATE",color:"#7656bd",cls:"violet",path:[0,1,2,3,4,5,"outB",6,7],checks:["Access approved","Sensitive customer data","Approved internal model","High impact: human oversight required"],summary:"The high-impact request is held for human review. A reviewer task is created; after approval with safeguards, the originating workflow can resume under the recorded conditions.",route:"Create compliance review task",routeDesc:"Route to authorised human reviewer",action:"Reviewer approves with safeguards",actionDesc:"Resume transaction subject to recorded conditions",tag:"REVIEW THEN RESUME",payload:'{"decision":"ESCALATE","required_action":"HUMAN_REVIEW","review_outcome":"APPROVE_WITH_SAFEGUARDS","trace_id":"AGL-ESC-4471"}',steps:[0,1,2,3,4,5,6]}
+];
+const $=id=>document.getElementById(id);
+let scenarioIndex=0,paused=false,runToken=0;
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+function node(id,active=true){const el=$("n"+id);if(el){el.classList.toggle("active",active);el.classList.toggle("done",!active)}}
+function resetVisual(){for(let i=0;i<=7;i++){const el=$("n"+i);el.classList.remove("active","done")}["outA","outB","outC","outD"].forEach(id=>$(id).classList.remove("active","done"));document.querySelectorAll(".edge").forEach(e=>e.classList.remove("active","green","amber","red","violet"));document.querySelectorAll(".txstep").forEach(e=>{e.classList.remove("active","complete","hold","review","green","amber","red","violet")});document.querySelectorAll(".tag").forEach(e=>e.className="tag");$("traveller").setAttribute("fill","#3568a8")}
+function colorFor(s){$("traveller").setAttribute("fill",s.color)}
+async function moveDot(points,s,token){
+ const dot=$("traveller");
+ const coords=id=>{
+  if(typeof id==="number"){const r=$("n"+id).querySelector("rect");return [+r.getAttribute("x")+ +r.getAttribute("width")/2,+r.getAttribute("y")+23]}
+  const r=$(id).querySelector("rect");return [+r.getAttribute("x")+ +r.getAttribute("width")/2,+r.getAttribute("y")+24]
+ };
+ let previous=points[0],p0=coords(previous);dot.setAttribute("cx",p0[0]);dot.setAttribute("cy",p0[1]);colorFor(s);
+ for(let k=0;k<points.length;k++){
+  const id=points[k];
+  if(token!==runToken)return;
+  while(paused&&token===runToken)await sleep(150);
+  const [x,y]=coords(id);
+  dot.setAttribute("cx",x);dot.setAttribute("cy",y);
+  if(typeof id==="number")node(id);
+  else $(id).classList.add("active");
+  if(k>0){
+   const edgeId=(previous==="outA"||previous==="outB"||previous==="outC"||id==="outA"||id==="outB"||id==="outC"||previous==="outD"||id==="outD")?
+     (id==="outA"||previous==="outA"?"branchA":id==="outB"||previous==="outB"?"branchB":id==="outD"||previous==="outD"?"branchD":"branchC"):"e"+Math.min(typeof previous==="number"?previous:0,6);
+   const edge=$(edgeId);if(edge){edge.classList.add("active",s.cls); }
+  }
+  const labels={
+   0:["Receiving enterprise event","POST /v1/governance/evaluate"],
+   1:["Enriching identity and request context","Caller, purpose, data class and model metadata"],
+   2:["Checking access authorization",s.checks[0]],
+   3:["Classifying data sensitivity",s.checks[1]],
+   4:["Checking model destination",s.checks[2]],
+   5:["Assessing potential impact",s.checks[3]],
+   6:["Generating governance decision","Returning decision, rationale and required action"],
+   7:["Recording trace and audit event","Trace ID linked to originating transaction"],
+   outA:["BLOCK branch selected","Hold sensitive data transfer, return remediation"],
+   outB:["ESCALATE branch selected","Create human review task before transaction proceeds"],
+   outC:["WARN branch selected","Return safeguards and acknowledgement requirements"],
+   outD:["ALLOW branch selected","Governance approved; continue the originating transaction"]
+  };
+  $("govStatus").textContent=labels[id][0];
+  $("govDetail").textContent=labels[id][1];
+  $("scenarioCount").textContent=String(scenarioIndex+1).padStart(2,"0")+" / 04";
+  previous=id;
+  await sleep(id===0?350:520);
+  if(token!==runToken)return;
+ }
+}
+async function txStep(id,s,token){
+ if(token!==runToken)return;
+ const el=$("t"+id);el.classList.add("active");
+ if(id>0)$("t"+(id-1)).classList.remove("active"),$("t"+(id-1)).classList.add("complete");
+ await sleep(470);
+ el.classList.remove("active");el.classList.add(id===5&&s.decision==="BLOCK"?"hold":id===5&&s.decision==="ESCALATE"?"review":"complete");
+}
+async function runScenario(index,token){
+ scenarioIndex=index;const s=scenarios[index];resetVisual();
+ $("liveLabel").textContent="Processing scenario "+(index+1)+" of 4";
+ $("progress").textContent="Scenario "+(index+1)+" of 4 · "+s.name;
+ $("decision").textContent="—";$("decision").className="decision";$("summary").textContent="Transaction in progress: "+s.name;
+ $("feed").textContent="Awaiting governance response…";$("txState").textContent="In flight";
+ $("branchTitle").textContent="Route transaction";$("branchDesc").textContent="Workflow engine selects the appropriate path";$("branchTag").textContent="ROUTE";
+ $("endTitle").textContent="Complete controlled action";$("endDesc").textContent="Continue, hold, or route for human disposition";$("endTag").textContent="ACTION";
+ for(let i=0;i<=2;i++)await txStep(i,s,token);
+ await moveDot(s.path,s,token);if(token!==runToken)return;
+ await txStep(3,s,token);
+ $("decision").textContent=s.decision;$("decision").className="decision "+s.cls;
+ $("summary").textContent=s.summary;
+ $("feed").textContent='POST /webhooks/transaction-result  ·  '+s.payload;
+ $("txState").textContent=s.decision+" received";$("t3").classList.add(s.cls);
+ $("branchTitle").textContent=s.route;$("branchDesc").textContent=s.routeDesc;$("branchTag").textContent=s.decision;
+ $("branchTag").className="tag "+s.cls;
+ await txStep(4,s,token);
+ $("endTitle").textContent=s.action;$("endDesc").textContent=s.actionDesc;$("endTag").textContent=s.tag;
+ $("endTag").className="tag "+s.cls;
+ await txStep(5,s,token);
+ await txStep(6,s,token);
+ $("govStatus").textContent=s.decision+" · transaction path completed";
+ $("govDetail").textContent="Decision, rationale, required action and trace ID returned to the calling workflow.";
+ $("liveLabel").textContent="Scenario completed";
+ $("txState").textContent="Completed · "+s.decision;
+ await sleep(1050);
+}
+async function sequence(){
+ const token=++runToken;paused=false;$("pauseBtn").textContent="Pause";
+ for(let i=0;i<scenarios.length;i++){if(token!==runToken)return;await runScenario(i,token)}
+ if(token===runToken){$("liveLabel").textContent="All four paths completed";$("progress").textContent="Complete · 4 decision paths demonstrated";$("govStatus").textContent="Sequence complete";$("govDetail").textContent="Each governance response was consumed by the enterprise transaction workflow and recorded.";$("pauseBtn").textContent="Replay"}
+}
+$("pauseBtn").addEventListener("click",()=>{if($("pauseBtn").textContent==="Replay"){sequence();return}paused=!paused;$("pauseBtn").textContent=paused?"Resume":"Pause"});
+$("replayBtn").addEventListener("click",sequence);
+sequence();
+</script>
+</body>
+</html>
