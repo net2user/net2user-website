@@ -1,297 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-8HYZLM2S2Q"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-8HYZLM2S2Q');
-</script>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Adoption Advisor | Net2User</title>
-<meta name="description" content="The Enterprise AI Adoption Advisor is a multi-agent decision intelligence platform for evaluating and prioritizing AI initiatives across business value, risk, governance, and readiness.">
+<title>AI Solutions | Net2User</title>
+<meta name="description" content="Explore Net2User's Enterprise AI Adoption Advisor and AI Governance Lens, including product walkthroughs, live demonstrations and enterprise workflow patterns.">
 <link rel="stylesheet" href="css/styles.css">
+<!-- Page-specific refinements. The shared site theme remains in css/styles.css. -->
+<style>
+.solution-label{display:inline-block;margin-bottom:12px;padding:5px 12px;border-radius:20px;background:#edf3ff;color:#174EA6;border:1px solid #d8e5fa;font-size:13px;font-weight:700}
+.solution-card h3,.demo-card h3,.workflow-card h3{color:#174EA6}
+.demo-card{display:flex;flex-direction:column;height:100%}
+.demo-card img{width:100%;height:auto;max-height:290px;object-fit:contain;background:#F5F7FA;border-radius:10px;margin:18px 0}
+.demo-card p{margin-bottom:12px}
+.demo-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:auto;padding-top:12px}
+.demo-actions a{display:inline-block;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:700;background:#174EA6;color:#fff;transition:.3s}
+.demo-actions a:hover{transform:translateY(-3px)}
+.demo-actions a.live-link{background:#B0223A}
+.workflow-card{border-top:4px solid #0F766E}
+.workflow-step{background:#F5F7FA;border-left:3px solid #174EA6;border-radius:6px;padding:12px 15px;margin:10px 0}
+.workflow-step strong{color:#174EA6}
+.workflow-note{font-size:14px;color:#666;margin-top:14px}
+@media(max-width:768px){.demo-card img{max-height:220px}.demo-actions a{width:100%;text-align:center}}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8HYZLM2S2Q"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-8HYZLM2S2Q');</script>
 </head>
 <body>
-
 <header>
 <nav class="navbar">
 <div class="logo">NET2USER</div>
-<button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
-<span></span>
-<span></span>
-<span></span>
-</button>
+<button class="menu-toggle" id="menuToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
 <ul class="nav-links" id="navLinks">
-<li><a href="index.html">Home</a></li>
-<li><a href="services.html">Services</a></li>
-<li><a href="research.html">Research</a></li>
-<li><a href="projects.html">AI Solutions</a></li>
-<li><a href="insights.html">Insights</a></li>
-<li><a href="contact.html">Contact</a></li>
+<li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="research.html">Research</a></li><li><a href="projects.html">AI Solutions</a></li><li><a href="insights.html">Insights</a></li><li><a href="contact.html">Contact</a></li>
 </ul>
 </nav>
 </header>
 
-<section class="hero">
-    <div class="hero-content">
+<section class="hero"><div class="hero-content">
+<span class="eyebrow">Enterprise AI • Transformation • Intelligence</span>
 <h1>AI Solutions</h1>
+<p>Practical decision-support tools that help organizations move from AI ambition to accountable action, from prioritizing AI initiatives to examining how AI should be governed in enterprise environments.</p>
+<div class="buttons"><a href="#ai-solutions" class="btn-primary">Explore AI Solutions</a><a href="#enterprise-workflows" class="btn-secondary">Enterprise Workflows</a></div>
+</div></section>
 
-        <p>
-            Practical decision-support tools that help organizations move from
-            AI ambition to accountable action: deciding which initiatives to
-            pursue and examining how AI should be governed in regulated
-            enterprise environments.
-        </p>
-
-        <div class="buttons">
-            <a href="#ai-solutions" class="btn-primary">Explore AI Solutions</a>
-            <a href="contact.html" class="btn-secondary">Discuss a Use Case</a>
-        </div>
-    </div>
-</section>
-
-
-<section class="services" id="adoption-advisor" id="ai-solutions">
-    <div class="container">
-<h2>AI Solutions</h2>
-        <p class="section-intro">
-            Practical decision-support tools designed to help organizations
-            prioritize, govern, and operationalize enterprise AI with greater
-            clarity and accountability.
-        </p>
-
-        <div class="services-grid">
-            <div class="service-card">
-                <h3>Enterprise AI Adoption Advisor</h3>
-                <p>
-                    Evaluate and prioritize AI initiatives across business
-                    value, risk, governance, data readiness, adoption, and
-                    implementation feasibility.
-                </p>
-                <a href="#see-it-in-action" class="btn-primary">
-                    Explore the Advisor
-                </a>
-            </div>
-
-            <div class="service-card">
-                <h3>AI Governance Lens</h3>
-                <p>
-                    A Chrome extension for structured AI-governance questions,
-                    reviewable responses, and supporting evidence in RBI and
-                    BFSI contexts.
-                </p>
-                <a href="ai-governance-lens.html" class="btn-primary">
-                    Explore AI Governance Lens
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="services">
-<div class="container">
-<h2>What These Solutions Help You Do</h2>
-<p class="section-intro">
-Enterprise AI decisions involve more than selecting a model or launching a pilot. Organizations need to understand where AI can create value, whether they are ready to act, what risks and governance questions must be addressed, and what conditions need to be in place before implementation.
-</p>
-
+<section class="services" id="ai-solutions"><div class="container">
+<h2>Product Experiences</h2>
+<p class="section-intro">Two complementary products, one focused on deciding where to apply AI, the other on examining how AI should be governed.</p>
 <div class="services-grid">
-
-<div class="service-card">
+<div class="service-card solution-card">
+<span class="solution-label">Decision Intelligence</span>
 <h3>Enterprise AI Adoption Advisor</h3>
-<p>
-Decide where AI can create value, assess readiness, compare adoption options, and identify the actions needed to move from an idea to implementation.
-</p>
-<a href="#see-it-in-action" class="btn-primary">Explore the Advisor</a>
+<p>Evaluate and prioritize AI initiatives across business value, risk, complexity, adoption, data readiness and implementation feasibility.</p>
+<p>Supports structured use-case assessment, agent scorecards, portfolio prioritization and executive briefings.</p>
+<a href="#eaaa-demo" class="btn-primary">Explore the Advisor</a>
 </div>
-
-<div class="service-card">
+<div class="service-card solution-card">
+<span class="solution-label">Responsible AI Governance</span>
 <h3>AI Governance Lens</h3>
-<p>
-Examine an AI initiative through governance, accountability, risk, and responsible AI considerations before moving toward implementation.
-</p>
-<a href="ai-governance-lens.html" class="btn-primary">Explore AI Governance Lens</a>
+<p>Evidence-led assistance for structured AI-governance questions, reviewable responses and supporting regulatory evidence in RBI and BFSI contexts.</p>
+<p>Designed to make evidence, authority status and limitations visible to the reviewer.</p>
+<a href="#agl-demo" class="btn-primary">Explore Governance Lens</a>
 </div>
+</div></div></section>
 
-</div>
-</div>
-</section>
-
-<section class="advisor" id="see-it-in-action">
-<div class="container">
+<section class="advisor" id="see-it-in-action"><div class="container">
 <h2>See the Solutions in Action</h2>
-<p class="section-intro">
-See how the tools turn an enterprise AI question into structured analysis, recommendations, and decision support.
-</p>
-
+<p class="section-intro">Watch the product walkthroughs, then open the existing interactive demonstrations or live applications.</p>
 <div class="services-grid">
-<div class="service-card">
+<div class="service-card demo-card" id="eaaa-demo">
 <h3>Enterprise AI Adoption Advisor</h3>
-<p>
-See a use case move from an initial idea to an executive briefing, scorecards, and a funding recommendation.
-</p>
-<img
-    src="images/enterprise-ai-adoption-advisor-demo-220fps.gif"
-    alt="Enterprise AI Adoption Advisor animated walkthrough"
-    loading="lazy"
-    style="display:block;width:100%;height:auto;border-radius:12px;margin:20px 0;">
-<a href="adoption-advisor-demo.html"
-   target="_blank"
-   rel="noopener noreferrer"
-   class="btn-primary advisor-demo-btn">
-    Open the Advisor Demo
-</a>
-</div>
-
-<div class="service-card">
+<p>See a use case move from an initial idea to an executive briefing, multi-agent scorecards and a funding recommendation.</p>
+<img src="images/enterprise-ai-adoption-advisor-demo-220fps.gif" alt="Enterprise AI Adoption Advisor animated product walkthrough" loading="lazy">
+<div class="demo-actions">
+<a href="adoption-advisor-demo.html" target="_blank" rel="noopener noreferrer">Open the Advisor Demo</a>
+<a class="live-link" href="https://multi-agent-enterprise-ai-adoption-advisor-ixmdm7zxqmqrhxgkzna.streamlit.app/" target="_blank" rel="noopener noreferrer">Open the Live Advisor</a>
+</div></div>
+<div class="service-card demo-card" id="agl-demo">
 <h3>AI Governance Lens</h3>
-<p>
-See an RBI governance question become a structured response with evidence and supporting references.
-</p>
-<img
-    src="images/ai_governance_lens_322fps.gif"
-    alt="AI Governance Lens RBI governance query walkthrough"
-    loading="lazy"
-    style="display:block;width:100%;height:auto;border-radius:12px;margin:20px 0;">
-<a href="demos/rbi-query-demo.html"
-   target="_blank"
-   rel="noopener noreferrer"
-   class="btn-primary governance-demo-btn">
-    Open RBI Query Demo
-</a>
-</div>
-</div>
-</div>
-</section>
+<p>See an RBI governance question become a structured response with supporting evidence and references.</p>
+<img src="images/ai_governance_lens_322fps.gif" alt="AI Governance Lens RBI governance query animated walkthrough" loading="lazy">
+<div class="demo-actions">
+<a href="demos/rbi-query-demo.html" target="_blank" rel="noopener noreferrer">Open RBI Query Demo</a>
+<a class="live-link" href="https://ai-governance-lens-api.onrender.com" target="_blank" rel="noopener noreferrer">Try AI Governance Lens Live</a>
+</div></div>
+</div></div></section>
 
-<section class="research">
-<div class="container">
-<h2>Who It's For</h2>
-<p class="section-intro">
-Anyone who has to walk into a room and make the case for or against a new AI initiative, at any level, in any domain.
-</p>
+<section class="services" id="enterprise-workflows"><div class="container">
+<h2>Enterprise Integration &amp; Decision Workflows</h2>
+<p class="section-intro">Beyond the individual product experience, these workflow demonstrations show how the capabilities can participate in broader enterprise processes. Proposed integration patterns are identified as such.</p>
 <div class="services-grid">
-<div class="service-card">
-<h3>Leadership & Stakeholders</h3>
-<p>CEOs, CTOs, CIOs, Executive Stakeholders and Boards</p>
+<div class="service-card workflow-card">
+<span class="solution-label">Governance Workflow</span>
+<h3>AI Governance Lens, Enterprise Workflow</h3>
+<p>Illustrates how governance review can sit within an employee request, compliance review and audit-oversight process.</p>
+<div class="workflow-step"><strong>01</strong> Employee request and context</div>
+<div class="workflow-step"><strong>02</strong> Governance evaluation and review</div>
+<div class="workflow-step"><strong>03</strong> Audit trail and oversight</div>
+<div class="demo-actions"><a href="ai-governance-lens-enterprise-workflow.html" target="_blank" rel="noopener noreferrer">View Enterprise Workflow</a></div>
+<p class="workflow-note">This is an illustrative workflow demonstration. It does not imply that all downstream enterprise integrations are deployed.</p>
 </div>
-<div class="service-card">
-<h3>Operations & Sales</h3>
-<p>Operational Teams, Sales Heads, Sales Executives, Customer Acquisition Teams</p>
-</div>
-<div class="service-card">
-<h3>Delivery & Product</h3>
-<p>Development Teams, PMO, Product Managers across every domain</p>
-</div>
-</div>
-</div>
-</section>
+<div class="service-card workflow-card">
+<span class="solution-label">Decision &amp; Qualification Workflow</span>
+<h3>Enterprise AI Adoption, Portfolio Workflow</h3>
+<p>Shows how individual use-case assessments can feed an organizational pipeline, helping leaders compare initiatives and decide what should progress.</p>
+<div class="workflow-step"><strong>01</strong> Capture and assess AI use cases</div>
+<div class="workflow-step"><strong>02</strong> Consolidate evidence and portfolio signals</div>
+<div class="workflow-step"><strong>03</strong> Prioritize, qualify and route for decision</div>
+<p class="workflow-note">Organizational pipeline, API, webhook and workflow automation are proposed integration extensions, not part of the current live Advisor demonstration.</p>
+<div class="demo-actions"><a href="contact.html">Discuss an Enterprise Use Case</a></div>
+</div></div></div></section>
 
-<section class="services">
-<div class="container">
+<section class="services" id="advisor-capabilities"><div class="container">
 <h2>How the Enterprise AI Adoption Advisor Works</h2>
+<p class="section-intro">The Advisor brings multiple perspectives into a structured assessment so that a promising idea can be examined before investment and implementation decisions are made.</p>
 <div class="services-grid">
-<div class="service-card">
-<h3>Single Use Case Mode</h3>
-<p>Run one initiative through the full evaluation and get back an Executive Briefing, a funding recommendation such as Fund with Conditions, along with the top conditions attached to that funding and the key tension leadership needs to resolve before moving forward.</p>
-</div>
-<div class="service-card">
-<h3>Agent Scorecards</h3>
-<p>Every assessment scores Value, Risk, Complexity, Adoption, and Data Readiness independently, each out of 100, each with a supporting figure, estimated dollar range, weeks to pilot, confidence level, so the rating isn't a black box number.</p>
-</div>
-<div class="service-card">
-<h3>Portfolio View</h3>
-<p>Rank every use case at once across a shared scoring model, sorted into Quick Win, Strategic Bet, Long Term Play, or Reconsider, with portfolio level observations that surface patterns a single use case view would miss.</p>
-</div>
-<div class="service-card">
-<h3>Per Agent Detail</h3>
-<p>Expand into the reasoning behind each score, Value agent, Risk and Governance agent, Architecture agent, Adoption agent, and Data Readiness agent, each with its own detailed breakdown behind the summary number.</p>
-</div>
-</div>
-</div>
-</section>
+<div class="service-card"><h3>Single Use Case Mode</h3><p>Run one initiative through the full evaluation and receive an Executive Briefing, a funding recommendation such as Fund with Conditions, the conditions attached to that funding and the key tension leadership needs to resolve.</p></div>
+<div class="service-card"><h3>Agent Scorecards</h3><p>Every assessment scores Value, Risk, Complexity, Adoption and Data Readiness independently, with supporting figures, estimated dollar ranges, weeks to pilot and confidence levels.</p></div>
+<div class="service-card"><h3>Portfolio View</h3><p>Rank use cases across a shared scoring model, grouped into Quick Win, Strategic Bet, Long Term Play or Reconsider, with portfolio-level observations.</p></div>
+<div class="service-card"><h3>Per Agent Detail</h3><p>Expand into the reasoning behind each score, including the Value, Risk and Governance, Architecture, Adoption and Data Readiness agents.</p></div>
+</div></div></section>
 
-<section class="research">
-<div class="container">
+<section class="research"><div class="container">
+<h2>Who It's For</h2>
+<p class="section-intro">Anyone who has to walk into a room and make the case for or against a new AI initiative, at any level, in any domain.</p>
+<div class="services-grid">
+<div class="service-card"><h3>Leadership &amp; Stakeholders</h3><p>CEOs, CTOs, CIOs, executive stakeholders and boards.</p></div>
+<div class="service-card"><h3>Operations &amp; Sales</h3><p>Operational teams, sales heads, sales executives and customer acquisition teams.</p></div>
+<div class="service-card"><h3>Delivery &amp; Product</h3><p>Development teams, PMO and product managers across domains.</p></div>
+</div></div></section>
+
+<section class="services"><div class="container">
 <h2>The Thinking Behind These Solutions</h2>
-<p class="section-intro">
-These solutions are grounded in a broader approach to Enterprise Intelligence Architecture, where AI adoption, data readiness, operating models, governance, risk, and accountability are considered together rather than as isolated concerns.
+<p class="section-intro">These solutions are grounded in a broader approach to Enterprise Intelligence Architecture, where AI adoption, data readiness, operating models, governance, risk and accountability are considered together rather than as isolated concerns.<br><br>The goal is not simply to introduce AI capabilities. It is to help organizations design the decision workflows, evidence, controls and human oversight needed to move from isolated initiatives toward an AI-enabled enterprise.</p>
+</div></section>
 
-The goal is not simply to introduce AI capabilities. It is to help organizations design the decision workflows, evidence, controls, and human oversight needed to move from isolated initiatives toward an AI-enabled enterprise.
-</p>
-</div>
-</section>
+<section class="advisor"><div class="container"><div class="advisor-box">
+<h2>Discuss an Enterprise Use Case</h2>
+<p>For a walkthrough, a governance discussion or an exploration of how these capabilities could fit into your organization's operating model.</p>
+<div class="buttons"><a href="contact.html" class="btn-primary">Connect with Vikas</a></div>
+</div></div></section>
 
-<section class="advisor">
-<div class="container">
-<div class="advisor-box">
-                <h2>Try It Yourself</h2>
-                <p>
-                    Explore both decision-support tools directly. The Enterprise AI Adoption
-                    Advisor evaluates whether an AI initiative is ready to fund and implement,
-                    while the AI Governance Lens helps teams ask, verify, and act on governance
-                    guidance with an evidence trail.
-                </p>
-
-                <div class="buttons advisor-buttons">
-                    <a href="https://multi-agent-enterprise-ai-adoption-advisor-ixmdm7zxqmqrhxgkzna.streamlit.app/"
-                       class="btn-primary"
-                       id="liveAdvisorBtn"
-                       target="_blank"
-                       rel="noopener">
-                        Open the Live Advisor →
-                    </a>
-
-                    <a href="demos/rbi-query-demo.html"
-                       class="btn-primary governance-demo-btn"
-                       target="_blank"
-                       rel="noopener noreferrer">
-                        Open the RBI Query Demo →
-                    </a>
-
-                    <a href="https://ai-governance-lens-api.onrender.com"
-                       class="btn-primary governance-live-btn"
-                       target="_blank"
-                       rel="noopener noreferrer">
-                        Try AI Governance Lens Live ↗
-                    </a>
-                </div>
-            </div>
-</div>
-</section>
-
-<section class="advisor-profile">
-<div class="container">
-<div class="profile-box">
-<div class="profile-content">
-<h3>Interested in a Walkthrough or a Deeper Dive</h3>
-<p>
-Reach out directly and I will walk you through the platform against a use case relevant to your organization's actual situation.
-</p>
-<a href="contact.html" class="btn-primary">Connect with Vikas</a>
-</div>
-</div>
-</div>
-</section>
-
-<footer>
-<div class="container">
-<div class="footer-content">
-<h3>NET2USER</h3>
-<p>Enterprise AI • Transformation • Intelligence</p>
-<p>Helping organizations turn AI ambition into enterprise value.</p>
-<hr>
+<footer><div class="container"><div class="footer-content">
+<h3>NET2USER</h3><p>Enterprise AI • Transformation • Intelligence</p>
+<p>Helping organizations turn AI ambition into enterprise value.</p><hr>
 <p>© 2026 Net2User. All Rights Reserved.</p>
-</div>
-</div>
-</footer>
-
+</div></div></footer>
 <script src="js/main.js"></script>
 </body>
 </html>
