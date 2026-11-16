@@ -9,6 +9,12 @@
 <!-- Page-specific refinements. The shared site theme remains in css/styles.css. -->
 <style>
 .solution-label{display:inline-block;margin-bottom:12px;padding:5px 12px;border-radius:20px;background:#edf3ff;color:#174EA6;border:1px solid #d8e5fa;font-size:13px;font-weight:700}
+.solution-actions{justify-content:flex-start;gap:10px;margin-top:20px}
+.solution-actions a{padding:12px 16px;border-radius:8px;text-decoration:none;font-weight:700;transition:.3s;text-align:center}
+.solution-actions .btn-primary{background:#174EA6;color:#fff}
+.solution-actions .btn-live{background:#B0223A;color:#fff}
+.solution-guidance{margin:12px 0 0;color:#5b6573;font-size:14px;line-height:1.5}
+.solution-actions a:hover{transform:translateY(-3px)}
 .solution-card h3,.demo-card h3,.workflow-card h3{color:#174EA6}
 .demo-card{display:flex;flex-direction:column;height:100%}
 .demo-card img{width:100%;height:auto;max-height:290px;object-fit:contain;background:#F5F7FA;border-radius:10px;margin:18px 0}
@@ -54,14 +60,22 @@
 <h3>Enterprise AI Adoption Advisor</h3>
 <p>Evaluate and prioritize AI initiatives across business value, risk, complexity, adoption, data readiness and implementation feasibility.</p>
 <p>Supports structured use-case assessment, agent scorecards, portfolio prioritization and executive briefings.</p>
+<div class="buttons solution-actions">
 <a href="#eaaa-demo" class="btn-primary">Explore the Advisor</a>
+<a href="https://multi-agent-enterprise-ai-adoption-advisor-ixmdm7zxqmqrhxgkzna.streamlit.app/" class="btn-live" target="_blank" rel="noopener noreferrer">Try Live Advisor</a>
+</div>
+<p class="solution-guidance">Explore the walkthrough or launch the interactive assessment.</p>
 </div>
 <div class="service-card solution-card">
 <span class="solution-label">Responsible AI Governance</span>
 <h3>AI Governance Lens</h3>
 <p>Evidence-led assistance for structured AI-governance questions, reviewable responses and supporting regulatory evidence in RBI and BFSI contexts.</p>
 <p>Designed to make evidence, authority status and limitations visible to the reviewer.</p>
+<div class="buttons solution-actions">
 <a href="#agl-demo" class="btn-primary">Explore Governance Lens</a>
+<a href="https://ai-governance-lens-api.onrender.com" class="btn-live" target="_blank" rel="noopener noreferrer">Try Governance Lens Live</a>
+</div>
+<p class="solution-guidance">View an example or try evidence-based regulatory queries.</p>
 </div>
 </div></div></section>
 
